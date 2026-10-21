@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-21",
+  "method": "Built-in image_gen",
+  "purpose": "Fictional Best Restaurant demonstration; not photographs of real menu items",
+  "prompts": [
+    {
+      "name": "burrata",
+      "prompt": "Use case: photorealistic-natural. Asset type: food photograph for a fictional premium Brazilian restaurant website demonstration. Subject: a single ivory ceramic plate of burrata with roasted cherry tomatoes, basil leaves and olive oil, appetizer. Natural editorial food photography, authentic textures, overhead three-quarter angle, entire plate visible and centered, landscape composition. Deep warm brown table surface, soft window light, muted olive and terracotta accents. No people, no lettering, no logos, no watermark. One dish only, realistic portions, restrained premium styling."
+    },
+    {
+      "name": "risoto",
+      "prompt": "Use case: photorealistic-natural. Asset type: food photograph for a fictional premium Brazilian restaurant website demonstration. Subject: a single shallow ivory ceramic bowl of mushroom risotto, porcini and fresh thyme, main dish. Natural editorial food photography, authentic textures, overhead three-quarter angle, entire plate visible and centered, landscape composition. Deep warm brown table surface, soft window light, muted olive and terracotta accents. No people, no lettering, no logos, no watermark. One dish only, realistic portions, restrained premium styling."
+    },
+    {
+      "name": "ravioli",
+      "prompt": "Use case: photorealistic-natural. Asset type: food photograph for a fictional premium Brazilian restaurant website demonstration. Subject: a single ivory ceramic plate of handmade pumpkin ravioli with sage butter and toasted hazelnuts, main dish. Natural editorial food photography, authentic textures, overhead three-quarter angle, entire plate visible and centered, landscape composition. Deep warm brown table surface, soft window light, muted olive and terracotta accents. No people, no lettering, no logos, no watermark. One dish only, realistic portions, restrained premium styling."
+    },
+    {
+      "name": "torta",
+      "prompt": "Use case: photorealistic-natural. Asset type: food photograph for a fictional premium Brazilian restaurant website demonstration. Subject: a single ivory ceramic plate with one slice of dark chocolate tart, a small vanilla cream quenelle and cocoa dust, dessert. Natural editorial food photography, authentic textures, overhead three-quarter angle, entire plate visible and centered, landscape composition. Deep warm brown table surface, soft window light, muted olive and terracotta accents. No people, no lettering, no logos, no watermark. One dish only, realistic portions, restrained premium styling."
+    }
+  ]
+}
