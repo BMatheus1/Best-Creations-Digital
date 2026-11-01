@@ -142,3 +142,23 @@ Resultados efetivos e limitações estão em [VALIDACAO.md](VALIDACAO.md). O rel
 5. Revise os links externos, as evidências e a política de privacidade antes da divulgação.
 
 Não é necessário configurar banco ou chaves para as demos. O site foi entregue localmente, sem publicação automática. Contatos institucionais, domínio e materiais internos adicionais autorizados continuam pendentes; isso não impede experimentar os cenários fictícios.
+
+## Deploy na Cloudflare Workers (OpenNext)
+
+O projeto Next.js pode ser publicado na Cloudflare Workers usando OpenNext.
+
+### Configuração atual do Workers Builds
+
+- Repositório: `BMatheus1/Best-Creations-Digital`, branch `main`.
+- Nome do Worker: **`best-creations-digital`**.
+- Build command: `npm run build` (a configuração automática do Wrangler também executa o build OpenNext).
+- Deploy command: `npx wrangler deploy`.
+- Root directory: raiz do repositório.
+
+**Correção do erro Cloudflare 10143**: o projeto estava com nome npm `best-creations-digital-studio`, mas o Worker cadastrado na Cloudflare era `best-creations-digital`. O nome npm agora está alinhado com o Worker para que o adapter configure a autorreferência `WORKER_SELF_REFERENCE` ao mesmo serviço.
+
+Se o erro persistir, confira a configuração gerada `wrangler.jsonc`: `name` e `services[].service` da binding `WORKER_SELF_REFERENCE` devem ter exatamente o mesmo nome do Worker que está sendo implantado. Não renomeie o Worker na Cloudflare sem sincronizar o nome no código/configuração.
+
+Atenção: rodar `npx wrangler deploy` em um repositório sem `wrangler.jsonc` utiliza configuração automática. Para produção estável, recomenda-se posteriormente salvar a configuração final do Wrangler/OpenNext e suas dependências em `package.json` + `package-lock.json`, após validar a publicação inicial.
+
+Nenhum segredo da Cloudflare, API ou WhatsApp deve ser incluído neste repositório.
