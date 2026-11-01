@@ -1,7 +1,16 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, ArrowUpRight, Plus } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  Plus,
+  Check,
+  ChevronDown,
+  X,
+} from "lucide-react";
+import { containDialogFocus } from "@/lib/dialog";
 import { services } from "@/data/services";
 import { StudioArtwork } from "@/components/visuals/StudioArtwork";
 import { ProjectVisual } from "@/components/projects/ProjectVisual";
@@ -26,6 +35,22 @@ const quoteTypes: Record<string, string> = {
 };
 export function ServiceExplorer() {
   const [index, setIndex] = useState(0);
+  const picker = useRef<HTMLDialogElement>(null);
+  const pickerTrigger = useRef<HTMLButtonElement>(null);
+  const [pickerOpen, setPickerOpen] = useState(false);
+  useEffect(() => {
+    if (!pickerOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [pickerOpen]);
+  function closePicker() {
+    picker.current?.close();
+    setPickerOpen(false);
+    pickerTrigger.current?.focus();
+  }
   const service = ordered[index];
   const previewThemes: Partial<Record<string, Project["theme"]>> = {
     sistemas: "finance",
@@ -63,18 +88,81 @@ export function ServiceExplorer() {
         </p>
       </aside>
       <div className="mobile-service-selector">
-        <label htmlFor="category-selector">Explore as soluções</label>
-        <select
-          id="category-selector"
-          value={index}
-          onChange={(event) => setIndex(Number(event.target.value))}
+        <span id="solution-picker-label" className="solution-picker-label">
+          Explore as soluções
+        </span>
+        <button
+          type="button"
+          ref={pickerTrigger}
+          className="solution-picker-trigger"
+          aria-labelledby="solution-picker-label solution-picker-value"
+          aria-haspopup="dialog"
+          onClick={() => {
+            picker.current?.showModal();
+            setPickerOpen(true);
+            picker.current
+              ?.querySelector<HTMLButtonElement>('[aria-pressed="true"]')
+              ?.focus();
+          }}
         >
-          {ordered.map((item, itemIndex) => (
-            <option value={itemIndex} key={item.id}>
-              0{itemIndex + 1} — {item.title}
-            </option>
-          ))}
-        </select>
+          <span id="solution-picker-value">
+            0{index + 1} — {service.title}
+          </span>
+          <ChevronDown size={18} aria-hidden="true" />
+        </button>
+        <dialog
+          ref={picker}
+          className="solution-picker"
+          aria-labelledby="solution-picker-title"
+          onClose={() => setPickerOpen(false)}
+          onKeyDown={(event) => containDialogFocus(event, event.currentTarget)}
+          onCancel={(event) => {
+            event.preventDefault();
+            closePicker();
+          }}
+          onClick={(event) => {
+            if (event.target === event.currentTarget) closePicker();
+          }}
+        >
+          <div className="solution-picker-panel">
+            <div className="solution-picker-handle" aria-hidden="true" />
+            <div className="solution-picker-header">
+              <h2 id="solution-picker-title">Explore as soluções</h2>
+              <button
+                type="button"
+                aria-label="Fechar soluções"
+                onClick={closePicker}
+              >
+                <X size={20} aria-hidden="true" />
+              </button>
+            </div>
+            <div
+              className="solution-picker-options"
+              role="group"
+              aria-label="Escolher solução"
+            >
+              {ordered.map((item, itemIndex) => (
+                <button
+                  type="button"
+                  key={item.id}
+                  aria-pressed={index === itemIndex}
+                  onClick={() => {
+                    setIndex(itemIndex);
+                    closePicker();
+                  }}
+                >
+                  <span className="solution-picker-number">
+                    0{itemIndex + 1}
+                  </span>
+                  <span>{item.title}</span>
+                  {index === itemIndex && (
+                    <Check size={18} aria-hidden="true" />
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+        </dialog>
         <div className="mobile-service-arrows">
           <button
             className="icon-button"

@@ -247,7 +247,11 @@ test("mobile: categorias, orientação e navegação utilizável", async ({
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await ready(page, "/servicos");
-  await page.getByLabel("Explore as soluções").selectOption("5");
+  await page.getByRole("button", { name: /Explore as soluções/ }).click();
+  await page
+    .getByRole("dialog", { name: "Explore as soluções" })
+    .getByRole("button", { name: /Inteligência artificial/i })
+    .click();
   await expect(page.locator(".service-stage")).toHaveAttribute(
     "data-active-service",
     "ia",

@@ -117,7 +117,14 @@ describe("Exploradores", () => {
   it("permite escolher soluções pelo seletor mobile e botões", async () => {
     const user = userEvent.setup();
     render(<ServiceExplorer />);
-    await user.selectOptions(screen.getByLabelText("Explore as soluções"), "2");
+    const trigger = screen.getByRole("button", { name: /Explore as soluções/ });
+    await user.click(trigger);
+    const picker = screen.getByRole("dialog", { name: "Explore as soluções" });
+    await user.click(
+      within(picker).getByRole("button", { name: /Aplicativos mobile/ }),
+    );
+    expect(picker).not.toHaveAttribute("open");
+    expect(trigger).toHaveFocus();
     expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
       "Aplicativos mobile",
     );
