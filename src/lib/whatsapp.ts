@@ -1,5 +1,7 @@
 import type { QuoteValues } from "./validations";
 
+export const officialWhatsAppNumber = "5511919164884";
+
 export function normalizeWhatsAppNumber(value: string): string | null {
   const number = value.replace(/[\s()+-]/g, "");
   return /^[1-9]\d{9,14}$/.test(number) ? number : null;

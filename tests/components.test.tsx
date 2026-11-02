@@ -261,8 +261,15 @@ describe("Formulário progressivo", () => {
     expect(screen.getByRole("status")).toHaveTextContent(
       "Nenhuma solicitação foi enviada.",
     );
+    const whatsappUrl = new URL(
+      screen
+        .getByRole("link", { name: /Abrir WhatsApp/ })
+        .getAttribute("href")!,
+    );
+    expect(whatsappUrl.pathname).toBe("/5511919164884");
+    expect(whatsappUrl.searchParams.get("text")).toContain("Nome: Ana Teste");
     expect(
-      screen.queryByRole("link", { name: /Abrir WhatsApp/ }),
+      screen.queryByRole("link", { name: /Conversar no Instagram/ }),
     ).not.toBeInTheDocument();
     await user.click(screen.getByRole("button", { name: "Copiar resumo" }));
     expect(

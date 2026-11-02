@@ -49,11 +49,11 @@ export default async function StartProject({
           </p>
           <a
             className="text-link"
-            href={company.instagram}
+            href={company.whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
           >
-            Prefere o Instagram? ↗
+            Conversar no WhatsApp ↗
             <span className="sr-only"> — abre em nova aba</span>
           </a>
         </aside>
@@ -65,7 +65,7 @@ export default async function StartProject({
       <noscript>
         <p className="no-script">
           O formulário progressivo precisa de JavaScript. Entre em contato pelo{" "}
-          <a href={company.instagram}>Instagram oficial</a>.
+          <a href={company.whatsappUrl}>WhatsApp da Best Creations</a>.
         </p>
       </noscript>
     </main>

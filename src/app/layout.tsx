@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Manrope, Cormorant_Garamond } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { company } from "@/data/company";
 import { projects } from "@/data/projects";
 import "./globals.css";
@@ -63,6 +64,7 @@ export default function RootLayout({
         <Header previewImage={projects[0].images[0]} />
         {children}
         <Footer />
+        <WhatsAppButton />
       </body>
     </html>
   );

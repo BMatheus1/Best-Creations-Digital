@@ -82,7 +82,7 @@ export default function Home() {
         <p className="no-script shell">
           Explore as páginas pelos links. Os navegadores de serviços e projetos
           e o formulário usam JavaScript. Para contato direto, acesse o{" "}
-          <a href={company.instagram}>Instagram oficial</a>.
+          <a href={company.whatsappUrl}>WhatsApp da Best Creations</a>.
         </p>
       </noscript>
     </main>

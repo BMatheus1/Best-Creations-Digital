@@ -77,8 +77,12 @@ export default function PrivacyPage() {
         <p>
           Para dúvidas ou solicitações relacionadas a informações compartilhadas
           diretamente com o estúdio, entre em contato pelo{" "}
-          <a href={company.instagram} target="_blank" rel="noopener noreferrer">
-            Instagram oficial da Best Creations (abre em nova aba)
+          <a
+            href={company.whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            WhatsApp da Best Creations (abre em nova aba)
           </a>
           {company.email ? (
             <>

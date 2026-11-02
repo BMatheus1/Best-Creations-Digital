@@ -113,15 +113,15 @@ Configure dados confirmados em `.env.local` ou na hospedagem:
 
 | Variável                      | Uso                                | Sem valor válido                                  |
 | ----------------------------- | ---------------------------------- | ------------------------------------------------- |
-| `NEXT_PUBLIC_WHATSAPP_NUMBER` | DDI + DDD + número, apenas dígitos | Resumo copiável e Instagram oficial               |
+| `NEXT_PUBLIC_WHATSAPP_NUMBER` | DDI + DDD + número, apenas dígitos | WhatsApp oficial: `5511919164884`                 |
 | `NEXT_PUBLIC_SITE_URL`        | Domínio oficial absoluto           | Canonical omitido e sitemap sem domínio presumido |
 | `NEXT_PUBLIC_CONTACT_EMAIL`   | E-mail comercial                   | Endereço omitido                                  |
 
-Variáveis `NEXT_PUBLIC_*` são públicas e incorporadas ao build. Nunca use segredos nelas; recompile após alterar. O único contato previamente confirmado é o Instagram oficial.
+Variáveis `NEXT_PUBLIC_*` são públicas e incorporadas ao build. Nunca use segredos nelas; recompile após alterar. O WhatsApp confirmado é +55 11 91916-4884, usado como padrão quando a variável está vazia ou inválida. O botão flutuante abre uma mensagem de apresentação nas páginas institucionais.
 
 Os CTAs dos cases levam `servico` e `referencia` ao orçamento. Apenas serviços válidos e slugs conhecidos são aceitos. A descrição inicial cita o projeto e pode ser editada. Avançar e voltar preserva as respostas; recarregar descarta o formulário.
 
-O visitante revisa a mensagem antes de abrir o WhatsApp. A confirmação de envio ocorre no WhatsApp; abrir a conversa não significa enviar. Sem número válido, há resumo copiável e alternativa pelo Instagram. Nenhuma demo utiliza o WhatsApp institucional.
+O visitante revisa a mensagem antes de abrir o WhatsApp. A confirmação de envio ocorre no WhatsApp; abrir a conversa não significa enviar. O orçamento abre a conversa com o resumo completo e oferece uma opção de cópia. Nenhuma demo utiliza o WhatsApp institucional.
 
 Sem domínio configurado, o Next.js avisa sobre o fallback local de `metadataBase` nas imagens sociais. Configure `NEXT_PUBLIC_SITE_URL` antes da publicação. Sitemap, robots, metadados e canonicals estão preparados; as rotas de laboratório têm `noindex`.
 

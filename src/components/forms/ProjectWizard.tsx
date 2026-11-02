@@ -6,7 +6,11 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Copy, Check } from "lucide-react";
 import { company } from "@/data/company";
 import { quoteSchema, type QuoteValues } from "@/lib/validations";
-import { createWhatsAppUrl, formatQuote } from "@/lib/whatsapp";
+import {
+  createWhatsAppUrl,
+  formatQuote,
+  officialWhatsAppNumber,
+} from "@/lib/whatsapp";
 const mainOptions = [
   {
     value: "Site institucional",
@@ -149,7 +153,9 @@ export function ProjectWizard({
     }
   }
   const values = getValues();
-  const url = createWhatsAppUrl(company.whatsapp, message);
+  const url =
+    createWhatsAppUrl(company.whatsapp, message) ||
+    createWhatsAppUrl(officialWhatsAppNumber, message)!;
   return (
     <div className="project-wizard">
       <div className="wizard-progress">
@@ -432,35 +438,16 @@ export function ProjectWizard({
                 rows={10}
               />
               <div className="send-actions">
-                {url ? (
-                  <a
-                    className="button button-light"
-                    href={url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setOpened(true)}
-                  >
-                    Abrir WhatsApp <ArrowUpRight size={18} aria-hidden="true" />
-                    <span className="sr-only"> — abre em nova aba</span>
-                  </a>
-                ) : (
-                  <div className="contact-unavailable">
-                    <p>WhatsApp comercial em configuração.</p>
-                    <span>
-                      Copie o resumo e entre em contato pelo Instagram oficial.
-                    </span>
-                    <a
-                      className="text-link accented"
-                      href={company.instagram}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Conversar no Instagram{" "}
-                      <ArrowUpRight size={16} aria-hidden="true" />
-                      <span className="sr-only"> — abre em nova aba</span>
-                    </a>
-                  </div>
-                )}
+                <a
+                  className="button button-light"
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setOpened(true)}
+                >
+                  Abrir WhatsApp <ArrowUpRight size={18} aria-hidden="true" />
+                  <span className="sr-only"> — abre em nova aba</span>
+                </a>
                 <button
                   className="text-link copy-button"
                   type="button"

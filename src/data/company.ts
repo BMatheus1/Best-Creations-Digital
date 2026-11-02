@@ -1,3 +1,15 @@
+import {
+  createWhatsAppUrl,
+  normalizeWhatsAppNumber,
+  officialWhatsAppNumber,
+} from "@/lib/whatsapp";
+
+const whatsapp =
+  normalizeWhatsAppNumber(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "") ||
+  officialWhatsAppNumber;
+const whatsappMessage =
+  "Olá, Best Creations! Vim pelo site e gostaria de conversar sobre um projeto e solicitar um orçamento.";
+
 function validSiteUrl(value: string | undefined): string | undefined {
   if (!value) return undefined;
   try {
@@ -17,7 +29,9 @@ export const company = {
   )
     ? process.env.NEXT_PUBLIC_CONTACT_EMAIL
     : undefined,
-  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "",
+  whatsapp,
+  whatsappMessage,
+  whatsappUrl: createWhatsAppUrl(whatsapp, whatsappMessage)!,
   siteUrl: validSiteUrl(process.env.NEXT_PUBLIC_SITE_URL),
   title: "Best Creations | Sites, Aplicativos e Sistemas Personalizados",
   description:
@@ -33,7 +47,6 @@ export const company = {
   },
   pending: [
     "Logotipo oficial",
-    "Número de WhatsApp comercial",
     "Domínio oficial",
     "E-mail comercial",
     "Screenshots e detalhes técnicos verificados dos projetos",

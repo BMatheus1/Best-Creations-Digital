@@ -47,6 +47,6 @@ export const faq = [
   {
     question: "Como solicitar um orçamento?",
     answer:
-      "Preencha o formulário com sua ideia e prepare o resumo do projeto. Com o WhatsApp comercial configurado, você poderá abrir a conversa e revisar a mensagem antes de enviar. O Instagram oficial também está disponível para contato.",
+      "Preencha o formulário com sua ideia, revise o resumo e clique em Abrir WhatsApp para conversar com a Best Creations. A mensagem leva os detalhes do seu projeto; basta confirmar o envio na conversa.",
   },
 ];
