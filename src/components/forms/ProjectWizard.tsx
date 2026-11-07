@@ -372,7 +372,8 @@ export function ProjectWizard({
               </div>
               <p className="fine-print">
                 Seus dados permanecem nesta página até você escolher
-                compartilhá-los. <Link href="/privacidade">Saiba mais.</Link>
+                compartilhá-los.{" "}
+                <Link href="/politica-de-privacidade">Saiba mais.</Link>
               </p>
             </>
           )}

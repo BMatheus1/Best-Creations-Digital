@@ -25,18 +25,19 @@ npm run start -- --port 3005
 
 ## Navegação
 
-| Rota               | Experiência                                                                        |
-| ------------------ | ---------------------------------------------------------------------------------- |
-| `/`                | Entrada cinematográfica, monograma BC e acesso visual ao showroom                  |
-| `/servicos`        | Exploração das sete especialidades e entregáveis completos                         |
-| `/projetos`        | Coleção com filtros, previews amplos, controles, teclado e swipe opcional          |
-| `/projetos/[slug]` | Estudo de caso, evidências, recursos, stack, galeria, links e orçamento contextual |
-| `/lab/crm`         | CRM com clientes, pipeline, tarefas, histórico e indicadores fictícios             |
-| `/lab/booking`     | Serviços, profissionais, calendário e agendamentos simulados                       |
-| `/lab/restaurant`  | Restaurante conceitual com cardápio, carrinho, pedido e reserva simulados          |
-| `/estudio`         | Filosofia, diferenciais, processo, segmentos e FAQ                                 |
-| `/iniciar-projeto` | Formulário progressivo: solução → ideia → contato → revisão → mensagem             |
-| `/privacidade`     | Tratamento dos dados, demos e links externos                                       |
+| Rota                       | Experiência                                                                        |
+| -------------------------- | ---------------------------------------------------------------------------------- |
+| `/`                        | Entrada cinematográfica, monograma BC e acesso visual ao showroom                  |
+| `/servicos`                | Exploração das sete especialidades e entregáveis completos                         |
+| `/projetos`                | Coleção com filtros, previews amplos, controles, teclado e swipe opcional          |
+| `/projetos/[slug]`         | Estudo de caso, evidências, recursos, stack, galeria, links e orçamento contextual |
+| `/lab/crm`                 | CRM com clientes, pipeline, tarefas, histórico e indicadores fictícios             |
+| `/lab/booking`             | Serviços, profissionais, calendário e agendamentos simulados                       |
+| `/lab/restaurant`          | Restaurante conceitual com cardápio, carrinho, pedido e reserva simulados          |
+| `/estudio`                 | Filosofia, diferenciais, processo, segmentos e FAQ                                 |
+| `/iniciar-projeto`         | Formulário progressivo: solução → ideia → contato → revisão → mensagem             |
+| `/politica-de-privacidade` | Política pública do site, Studio Factory e integração planejada com Pinterest      |
+| `/privacidade`             | Redirecionamento permanente para a política atual                                  |
 
 O menu usa diálogo nativo, foco inicial, ciclo de Tab/Shift+Tab, fundo inerte, bloqueio da rolagem, Escape e retorno de foco. Seus previews respondem a hover e teclado. A versão mobile possui hierarquia própria. A coleção não tem autoplay, scroll hijacking ou dependência de gestos ocultos.
 

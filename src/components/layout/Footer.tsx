@@ -17,7 +17,7 @@ export function Footer() {
           Instagram <ArrowUpRight size={12} aria-hidden="true" />
           <span className="sr-only"> — abre em nova aba</span>
         </a>
-        <Link href="/privacidade">Privacidade</Link>
+        <Link href="/politica-de-privacidade">Política de Privacidade</Link>
       </div>
     </footer>
   );
