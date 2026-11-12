@@ -199,7 +199,6 @@ export function ServiceExplorer() {
               <ProjectVisual theme={previewTheme} />
             ) : (
               <StudioArtwork
-                id={`solution-${service.id}`}
                 variant={
                   service.id === "ia"
                     ? "data"

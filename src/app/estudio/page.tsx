@@ -33,7 +33,7 @@ export default function StudioPage() {
           </p>
         </div>
         <div className="studio-brand-art">
-          <StudioArtwork id="studio-signature" variant="studio" />
+          <StudioArtwork variant="studio" />
           <span>INDEPENDENT BY NATURE. PRECISE BY DESIGN.</span>
         </div>
       </section>

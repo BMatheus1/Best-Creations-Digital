@@ -27,19 +27,16 @@ export default function Home() {
         }}
       />
       <div className="home-stage">
-        <div className="home-atmosphere" aria-hidden="true" />
         <SignatureArtwork>
-          <StudioArtwork id="home-signature" className="home-art" />
+          <StudioArtwork className="home-art" />
         </SignatureArtwork>
         <div className="home-topline shell">
           <p className="eyebrow">
             <span className="live-dot" />
-            BEST CREATIONS — DIGITAL EXPERIENCE
+            ESTÚDIO DIGITAL INDEPENDENTE
           </p>
-          <span>ESTÉTICA. ENGENHARIA. EMOÇÃO.</span>
         </div>
         <div className="home-copy shell">
-          <p className="home-kicker">FEITO PARA IR ALÉM.</p>
           <h1>
             O digital
             <br />
@@ -60,19 +57,14 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="home-caption">
-          <span>THE SIGNATURE / 001</span>
-          <i />
-          <span>DESIGN + TECHNOLOGY</span>
-        </div>
         <div className="home-portal shell">
           <Link href="/projetos">
-            <span className="portal-number">01 / THE COLLECTION</span>
+            <span className="portal-number">PORTFÓLIO</span>
             <span>Explore o showroom.</span>
             <ArrowRight size={20} strokeWidth={1} aria-hidden="true" />
           </Link>
           <Link href="/estudio">
-            <span className="portal-number">02 / THE STUDIO</span>
+            <span className="portal-number">ESTÚDIO</span>
             <span>Independente por natureza.</span>
             <ArrowRight size={20} strokeWidth={1} aria-hidden="true" />
           </Link>

@@ -41,7 +41,7 @@ export default async function StartProject({
             <br />
             <em>Uma criação nossa.</em>
           </p>
-          <StudioArtwork id="project-contact" variant="contact" />
+          <StudioArtwork variant="contact" />
           <p>
             Uma conversa clara.
             <br />

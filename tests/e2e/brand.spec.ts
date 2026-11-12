@@ -12,10 +12,10 @@ test("assinatura: entrada elegante e sem repetição ao retornar", async ({
       .getAnimations({ subtree: true })
       .map((animation) => (animation as CSSAnimation).animationName),
   );
-  expect(names).toContain("signature-assemble-b");
-  expect(names).toContain("signature-assemble-c");
-  expect(names).toContain("signature-sheen");
-  const bounds = await signature.locator(".metal-monogram").boundingBox();
+  expect(names).toContain("bc-reveal-b");
+  expect(names).toContain("bc-reveal-c");
+  expect(names).toContain("bc-reveal-paper");
+  const bounds = await signature.locator(".bc-signature").boundingBox();
   expect(bounds).not.toBeNull();
   const viewport = page.viewportSize()!;
   expect(bounds!.x + bounds!.width / 2).toBeGreaterThan(0);
@@ -61,7 +61,8 @@ test("assinatura: redução de movimento e marca consistente no mobile", async (
   ).toBe(true);
   const mark = page.locator(".site-header .brand-mark");
   await expect(mark).toBeVisible();
-  expect(await mark.locator(".mark-piece").count()).toBe(2);
+  await expect(mark.locator(".brand-letter-b")).toHaveCount(1);
+  await expect(mark.locator(".brand-letter-c path")).toHaveCount(2);
   await page.getByRole("button", { name: "Abrir menu" }).click();
   await expect(page.getByRole("dialog").locator(".brand-mark")).toBeVisible();
   await page.keyboard.press("Escape");

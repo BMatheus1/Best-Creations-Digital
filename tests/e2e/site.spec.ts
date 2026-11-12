@@ -309,7 +309,7 @@ test("homepage compacta e redução de movimento", async ({ page }) => {
   ).toBeLessThanOrEqual(1200);
   expect(
     await page
-      .locator(".metal-monogram")
+      .locator(".bc-signature")
       .first()
       .evaluate((el) => getComputedStyle(el).animationName),
   ).toBe("none");

@@ -12,9 +12,7 @@ export function Brand({ onNavigate }: { onNavigate?: () => void }) {
       <BrandMark className="brand-mark" aria-hidden="true" />
       <span>
         <span className="brand-name">BEST CREATIONS</span>
-        <span className="brand-signature">
-          D I G I T A L &nbsp; S T U D I O
-        </span>
+        <span className="brand-signature">ESTÚDIO DIGITAL</span>
       </span>
     </Link>
   );

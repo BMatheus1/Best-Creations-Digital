@@ -39,7 +39,7 @@ export function Header({ previewImage }: { previewImage?: ProjectImage }) {
         <div className="header-inner shell">
           <Brand />
           <span className="header-edition">
-            INDEPENDENT DIGITAL STUDIO <i />
+            ESTÚDIO DIGITAL INDEPENDENTE <i />
           </span>
           <div className="header-actions">
             <Link className="header-start" href="/iniciar-projeto">
@@ -120,21 +120,16 @@ export function Header({ previewImage }: { previewImage?: ProjectImage }) {
               {current.preview === "collection" ? (
                 <ProjectVisual theme="restaurant" image={previewImage} />
               ) : (
-                <StudioArtwork
-                  id={`menu-${current.preview}`}
-                  variant={current.preview}
-                />
+                <StudioArtwork variant={current.preview} />
               )}
               <div className="menu-preview-caption">
                 <span className="eyebrow">0{preview + 1} / 05</span>
                 <p>{current.edition}</p>
-                <span>DESIGN COM INTENÇÃO. TECNOLOGIA COM PROPÓSITO.</span>
               </div>
             </div>
           </div>
         </div>
         <div className="menu-bottom shell">
-          <span>SEU PRÓXIMO MOVIMENTO COMEÇA AQUI.</span>
           <a href={company.instagram} target="_blank" rel="noopener noreferrer">
             Instagram <ArrowUpRight size={13} aria-hidden="true" />
             <span className="sr-only"> — abre em nova aba</span>

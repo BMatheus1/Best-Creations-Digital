@@ -27,7 +27,7 @@ npm run start -- --port 3005
 
 | Rota                       | Experiência                                                                        |
 | -------------------------- | ---------------------------------------------------------------------------------- |
-| `/`                        | Entrada cinematográfica, monograma BC e acesso visual ao showroom                  |
+| `/`                        | Entrada cinematográfica, monograma Bc. e acesso visual ao showroom                 |
 | `/servicos`                | Exploração das sete especialidades e entregáveis completos                         |
 | `/projetos`                | Coleção com filtros, previews amplos, controles, teclado e swipe opcional          |
 | `/projetos/[slug]`         | Estudo de caso, evidências, recursos, stack, galeria, links e orçamento contextual |
@@ -91,9 +91,9 @@ A coleção e os cases são renderizados no servidor. O explorador recebe soment
 
 ## Marca e imagens
 
-Paleta institucional: #0B0B0B, #171717, #C9A44C/#E4C780, #F6F2E9 e #AAA7A0. Manrope, Inter e Cormorant Garamond usam `next/font` e são servidas pela aplicação após o build.
+Paleta institucional: preto profundo, grafite, branco e tons de papel. Manrope, Inter e Cormorant Garamond usam `next/font` e são servidas pela aplicação após o build.
 
-O monograma BC possui geometria compartilhada em `src/data/brand.ts`. Cabeçalho, menu, favicon, imagem social e composição principal usam os mesmos traçados. Na homepage, as peças se aproximam e recebem um reflexo; a sequência termina em 3,4 segundos, não reinicia ao voltar pela navegação interna e respeita redução de movimento. O vetor independente está em `public/brand/best-creations-symbol.svg`. A marca foi criada para esta implementação, sem alegação de registro.
+O monograma Bc. possui geometria compartilhada em `src/data/brand.ts`. Cabeçalho, menu, favicon, imagem social e composição principal usam os mesmos traçados. Na homepage, a divisão cromática e as letras aparecem em uma revelação tipográfica de cerca de um segundo, não reinicia ao voltar pela navegação interna e respeita redução de movimento. O vetor independente está em `public/brand/best-creations-symbol.svg`. Os contornos foram traçados a partir das referências aprovadas.
 
 A referência Ferrari orientou escala e acabamento; não foram copiados seus ativos ou conteúdo. As imagens gastronômicas foram criadas com a ferramenta nativa image_gen exclusivamente para a demo fictícia. Prompts, caminhos e fontes das capturas estão em [créditos de mídia](docs/media-credits.md) e [prompts completos](docs/media-prompts.json).
 

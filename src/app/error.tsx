@@ -15,14 +15,14 @@ export default function ErrorPage({
       <h1>
         Vamos tentar
         <br />
-        <span className="serif gold-text">mais uma vez.</span>
+        <span className="serif accent-text">mais uma vez.</span>
       </h1>
       <p>
         Não foi possível carregar esta página agora. Você pode tentar novamente
         ou voltar ao início.
       </p>
       <div className="hero-actions">
-        <button type="button" className="button button-gold" onClick={reset}>
+        <button type="button" className="button button-light" onClick={reset}>
           Tentar novamente <RotateCcw size={16} aria-hidden="true" />
         </button>
         <Link href="/" className="text-link">

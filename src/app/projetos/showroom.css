@@ -12,7 +12,7 @@
 }
 .showroom-title em {
   font: italic 1.2em var(--editorial);
-  color: var(--gold-light);
+  color: var(--interactive-primary);
 }
 .showroom-title > p {
   font-size: 11px;
@@ -37,7 +37,7 @@
   position: relative;
 }
 .collection-filters button[aria-pressed="true"] {
-  color: var(--gold-light);
+  color: var(--interactive-primary);
 }
 .collection-filters button[aria-pressed="true"]::after {
   content: "";
@@ -46,7 +46,7 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: var(--gold);
+  background: var(--interactive-marker);
 }
 .showroom .collection-toolbar {
   margin-bottom: 22px;
@@ -108,8 +108,8 @@
   position: relative;
 }
 .showroom-frame {
-  border: 1px solid #4a4840;
-  background: #161714;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-primary);
   box-shadow: 0 24px 65px #0004;
   transform: perspective(1400px) rotateY(-4deg) rotateZ(1deg);
   transition: transform 0.65s ease;
@@ -124,20 +124,20 @@
   align-items: center;
   gap: 5px;
   padding: 0 14px;
-  background: #191a16;
-  border-bottom: 1px solid #4a4840;
+  background: var(--surface-elevated);
+  border-bottom: 1px solid var(--border-subtle);
 }
 .frame-top > span {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #777568;
+  background: var(--border-strong);
 }
 .frame-top > i {
   margin-left: auto;
   font: normal 6px var(--body);
   letter-spacing: 0.15em;
-  color: #c3bda8;
+  color: var(--text-secondary);
 }
 .showroom .collection-image-link {
   display: block;
@@ -148,7 +148,7 @@
   height: auto;
   aspect-ratio: 1.53;
   min-height: 0;
-  background: #131510;
+  background: var(--background-secondary);
   overflow: hidden;
 }
 .showroom .project-visual img {
@@ -169,7 +169,7 @@
   height: 47px;
   right: 15px;
   bottom: 15px;
-  background: #0b0b0bbf;
+  background: #080808bf;
 }
 .showroom .collection-index {
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -221,14 +221,14 @@
   letter-spacing: 0.13em;
 }
 .case-cover .project-visual {
-  background: #161813;
+  background: var(--background-secondary);
 }
 .case-cover .project-visual img {
   object-fit: contain;
 }
 .audit-stamp {
   display: block;
-  color: var(--gold-light);
+  color: var(--interactive-primary);
   font-size: 9px;
   margin-top: 16px;
 }
@@ -240,7 +240,7 @@
 .case-disclosure summary {
   font-size: 11px;
   cursor: pointer;
-  color: var(--gold-light);
+  color: var(--interactive-primary);
   min-height: 35px;
 }
 .case-specs .case-disclosure ul {
@@ -258,7 +258,7 @@
 .gallery-image {
   display: flex;
   justify-content: center;
-  background: #151713;
+  background: var(--background-secondary);
   overflow: hidden;
   max-height: 760px;
 }
@@ -318,7 +318,7 @@
 }
 .quote-reference {
   font-size: 11px;
-  color: var(--gold-light);
+  color: var(--interactive-primary);
   padding: 14px 0;
   border-bottom: 1px solid var(--line);
 }

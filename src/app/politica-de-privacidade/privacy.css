@@ -13,7 +13,7 @@
 }
 .privacy-heading h1 em {
   font-family: var(--editorial);
-  color: var(--gold-light);
+  color: var(--interactive-primary);
   font-weight: 400;
 }
 .privacy-intro {
@@ -39,7 +39,7 @@
   border: 1px solid var(--line);
   border-radius: 999px;
   font-size: 10px;
-  color: var(--gold-light);
+  color: var(--interactive-primary);
 }
 .privacy-layout {
   display: grid;
@@ -68,7 +68,7 @@
   color: var(--muted);
 }
 .privacy-index a span {
-  color: var(--gold-light);
+  color: var(--interactive-primary);
   font-size: 9px;
 }
 .privacy-index a:hover,
@@ -87,7 +87,7 @@
 .privacy-number {
   font-size: 9px;
   letter-spacing: 0.12em;
-  color: var(--gold-light);
+  color: var(--interactive-primary);
 }
 .privacy-content h2 {
   margin: 14px 0 22px;
@@ -99,10 +99,10 @@
   font-size: 14px;
   line-height: 1.95;
   margin-top: 16px;
-  color: #c5c1b9;
+  color: var(--text-secondary);
 }
 .privacy-content p a {
-  color: var(--gold-light);
+  color: var(--interactive-primary);
   text-decoration: underline;
   text-underline-offset: 4px;
   overflow-wrap: anywhere;

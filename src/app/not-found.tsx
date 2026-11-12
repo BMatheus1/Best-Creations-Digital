@@ -7,10 +7,10 @@ export default function NotFound() {
       <h1>
         Essa página ainda
         <br />
-        <span className="serif gold-text">não ganhou forma.</span>
+        <span className="serif accent-text">não ganhou forma.</span>
       </h1>
       <p>Volte para conhecer nossas soluções e projetos.</p>
-      <Link href="/" className="button button-gold">
+      <Link href="/" className="button button-light">
         Voltar ao início <ArrowUpRight size={17} aria-hidden="true" />
       </Link>
     </main>

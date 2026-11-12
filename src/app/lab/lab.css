@@ -2,7 +2,7 @@
   padding-top: 90px;
 }
 body:has(.lab-page) .site-header {
-  background: #0b0b0b;
+  background: var(--background-primary);
 }
 .lab-app :where(p, em) {
   color: inherit;
@@ -27,7 +27,7 @@ body:has(.lab-page) .site-header {
 .lab-context > p {
   font-size: 7px;
   letter-spacing: 0.14em;
-  color: var(--gold-light);
+  color: var(--interactive-primary);
   margin: 0;
 }
 .lab-context > p span {

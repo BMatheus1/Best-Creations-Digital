@@ -1,41 +1,60 @@
 import type { SVGProps } from "react";
-import { brandPaths } from "@/data/brand";
+import {
+  brandPaths,
+  brandPalette,
+  brandGlyphOffset,
+  brandBadgeViewBox,
+  brandBadgeHalf,
+  brandBadgeGlyphTransform,
+} from "@/data/brand";
 
 export function BrandGlyph({
-  gold = "currentColor",
-  graphite = "currentColor",
+  b = "currentColor",
+  c = "currentColor",
 }: {
-  gold?: string;
-  graphite?: string;
+  b?: string;
+  c?: string;
 }) {
   return (
-    <>
-      <g className="mark-piece mark-piece-b">
-        <path d={brandPaths.b} fill={gold} fillRule="evenodd" />
-        <path
-          d="M13 13H55L78 36M31 94H50L62 82"
-          stroke="currentColor"
-          strokeOpacity=".38"
-          strokeWidth=".45"
-        />
+    <g transform={brandGlyphOffset}>
+      <path
+        className="brand-letter-b"
+        d={brandPaths.b}
+        fill={b}
+        fillRule="evenodd"
+      />
+      <g className="brand-letter-c" fill={c}>
+        <path d={brandPaths.c} />
+        <path d={brandPaths.dot} />
       </g>
-      <g className="mark-piece mark-piece-c">
-        <path d={brandPaths.c} fill={graphite} />
-        <path
-          d="M115 28L99 12H76L51 37V85L76 110H99L115 94M69 45L84 30H91"
-          stroke="currentColor"
-          strokeOpacity=".42"
-          strokeWidth=".45"
-        />
-      </g>
-    </>
+    </g>
   );
 }
 
-export function BrandMark(props: SVGProps<SVGSVGElement>) {
+export function BrandMark({
+  tone = "split",
+  ...props
+}: SVGProps<SVGSVGElement> & { tone?: "split" | "light" | "dark" }) {
+  if (tone !== "split") {
+    const ink = tone === "light" ? brandPalette.white : brandPalette.black;
+    return (
+      <svg viewBox="-300 -165 600 330" focusable="false" {...props}>
+        <BrandGlyph b={ink} c={ink} />
+      </svg>
+    );
+  }
   return (
-    <svg viewBox="0 0 128 124" fill="none" focusable="false" {...props}>
-      <BrandGlyph />
+    <svg viewBox={brandBadgeViewBox} focusable="false" {...props}>
+      <circle
+        r="245"
+        fill={brandPalette.black}
+        stroke={brandPalette.white}
+        strokeWidth="8"
+      />
+      <path d={brandBadgeHalf} fill={brandPalette.white} />
+      <g transform={brandBadgeGlyphTransform}>
+        <BrandGlyph b={brandPalette.white} c={brandPalette.black} />
+      </g>
     </svg>
   );
 }

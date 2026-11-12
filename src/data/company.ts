@@ -1,3 +1,4 @@
+import { brandPalette } from "@/data/brand";
 import {
   createWhatsAppUrl,
   normalizeWhatsAppNumber,
@@ -36,17 +37,8 @@ export const company = {
   title: "Best Creations | Sites, Aplicativos e Sistemas Personalizados",
   description:
     "Sites profissionais, landing pages, aplicativos, sistemas web, design digital e automações sob medida. Conheça a Best Creations Digital Studio.",
-  identity: {
-    background: "#0B0B0B",
-    surface: "#171717",
-    border: "#242424",
-    gold: "#C9A44C",
-    goldLight: "#E4C780",
-    text: "#F6F2E9",
-    muted: "#AAA7A0",
-  },
+  identity: brandPalette,
   pending: [
-    "Logotipo oficial",
     "Domínio oficial",
     "E-mail comercial",
     "Screenshots e detalhes técnicos verificados dos projetos",
@@ -56,31 +48,31 @@ export const navigation = [
   {
     label: "Início",
     href: "/",
-    edition: "The experience",
+    edition: "Início",
     preview: "signature",
   },
   {
     label: "Serviços",
     href: "/servicos",
-    edition: "Explore the possibilities",
+    edition: "Soluções digitais",
     preview: "interfaces",
   },
   {
     label: "Projetos",
     href: "/projetos",
-    edition: "The collection",
+    edition: "Portfólio",
     preview: "collection",
   },
   {
     label: "O estúdio",
     href: "/estudio",
-    edition: "Independent by nature",
+    edition: "Sobre a Best Creations",
     preview: "studio",
   },
   {
     label: "Iniciar projeto",
     href: "/iniciar-projeto",
-    edition: "Your next chapter",
+    edition: "Orçamento",
     preview: "contact",
   },
 ] as const;
