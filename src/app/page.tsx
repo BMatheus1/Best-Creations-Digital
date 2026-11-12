@@ -39,34 +39,39 @@ export default function Home() {
         >
           <BrandGlyph b={brandPalette.white} c={brandPalette.black} />
         </svg>
-        <div className="home-copy">
-          <p className="home-eyebrow">ESTÚDIO DIGITAL INDEPENDENTE</p>
-          <h1>
-            O digital além do <em>comum.</em>
-          </h1>
-          <p>
-            Criamos experiências digitais que unem design, tecnologia e
-            estratégia.
-          </p>
+        <div className="home-content">
+          <div className="home-copy">
+            <p className="home-eyebrow">ESTÚDIO DIGITAL INDEPENDENTE</p>
+            <h1>
+              O digital além do <em>comum.</em>
+            </h1>
+            <p>
+              Criamos experiências digitais que unem design, tecnologia e
+              estratégia.
+            </p>
+          </div>
+          <nav
+            className="home-navigation"
+            aria-label="Explore a Best Creations"
+          >
+            <Link href="/servicos">
+              <span>Explorar serviços</span>
+              <ArrowUpRight size={18} aria-hidden="true" />
+            </Link>
+            <Link href="/projetos">
+              <span>Explore o showroom.</span>
+              <ArrowUpRight size={18} aria-hidden="true" />
+            </Link>
+            <Link href="/estudio">
+              <span>O estúdio</span>
+              <ArrowUpRight size={18} aria-hidden="true" />
+            </Link>
+            <Link href="/iniciar-projeto">
+              <span>Iniciar projeto</span>
+              <ArrowUpRight size={18} aria-hidden="true" />
+            </Link>
+          </nav>
         </div>
-        <nav className="home-navigation" aria-label="Explore a Best Creations">
-          <Link href="/servicos">
-            <span>Explorar serviços</span>
-            <ArrowUpRight size={18} aria-hidden="true" />
-          </Link>
-          <Link href="/projetos">
-            <span>Explore o showroom.</span>
-            <ArrowUpRight size={18} aria-hidden="true" />
-          </Link>
-          <Link href="/estudio">
-            <span>O estúdio</span>
-            <ArrowUpRight size={18} aria-hidden="true" />
-          </Link>
-          <Link href="/iniciar-projeto">
-            <span>Iniciar projeto</span>
-            <ArrowUpRight size={18} aria-hidden="true" />
-          </Link>
-        </nav>
       </SignatureArtwork>
       <noscript>
         <p className="no-script shell">
