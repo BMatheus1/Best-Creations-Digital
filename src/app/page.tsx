@@ -1,9 +1,11 @@
 import Link from "next/link";
-import { ArrowUpRight, ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { SignatureArtwork } from "@/components/visuals/SignatureArtwork";
-import { StudioArtwork } from "@/components/visuals/StudioArtwork";
+import { BrandGlyph } from "@/components/visuals/BrandMark";
+import { brandPalette } from "@/data/brand";
 import { company } from "@/data/company";
 import { pageMetadata } from "@/lib/metadata";
+import "./home.css";
 export const metadata = pageMetadata(
   "O digital além do comum",
   company.description,
@@ -26,50 +28,46 @@ export default function Home() {
           __html: JSON.stringify(schema).replace(/</g, "\\u003c"),
         }}
       />
-      <div className="home-stage">
-        <SignatureArtwork>
-          <StudioArtwork className="home-art" />
-        </SignatureArtwork>
-        <div className="home-topline shell">
-          <p className="eyebrow">
-            <span className="live-dot" />
-            ESTÚDIO DIGITAL INDEPENDENTE
+      <SignatureArtwork>
+        <div className="home-surface home-surface-dark" aria-hidden="true" />
+        <div className="home-surface home-surface-light" aria-hidden="true" />
+        <svg
+          className="home-signature"
+          viewBox="-300 -205 600 410"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <BrandGlyph b={brandPalette.white} c={brandPalette.black} />
+        </svg>
+        <div className="home-copy">
+          <p className="home-eyebrow">ESTÚDIO DIGITAL INDEPENDENTE</p>
+          <h1>
+            O digital além do <em>comum.</em>
+          </h1>
+          <p>
+            Criamos experiências digitais que unem design, tecnologia e
+            estratégia.
           </p>
         </div>
-        <div className="home-copy shell">
-          <h1>
-            O digital
-            <br />
-            além do <em>comum.</em>
-          </h1>
-          <div className="home-copy-bottom">
-            <p>
-              Criamos experiências digitais que unem
-              <br className="desktop-only" /> design, tecnologia e estratégia.
-            </p>
-            <div className="home-ctas">
-              <Link href="/servicos" className="button button-light">
-                Explorar <ArrowUpRight size={18} aria-hidden="true" />
-              </Link>
-              <Link href="/iniciar-projeto" className="text-link">
-                Iniciar projeto <ArrowUpRight size={16} aria-hidden="true" />
-              </Link>
-            </div>
-          </div>
-        </div>
-        <div className="home-portal shell">
+        <nav className="home-navigation" aria-label="Explore a Best Creations">
+          <Link href="/servicos">
+            <span>Explorar serviços</span>
+            <ArrowUpRight size={18} aria-hidden="true" />
+          </Link>
           <Link href="/projetos">
-            <span className="portal-number">PORTFÓLIO</span>
             <span>Explore o showroom.</span>
-            <ArrowRight size={20} strokeWidth={1} aria-hidden="true" />
+            <ArrowUpRight size={18} aria-hidden="true" />
           </Link>
           <Link href="/estudio">
-            <span className="portal-number">ESTÚDIO</span>
-            <span>Independente por natureza.</span>
-            <ArrowRight size={20} strokeWidth={1} aria-hidden="true" />
+            <span>O estúdio</span>
+            <ArrowUpRight size={18} aria-hidden="true" />
           </Link>
-        </div>
-      </div>
+          <Link href="/iniciar-projeto">
+            <span>Iniciar projeto</span>
+            <ArrowUpRight size={18} aria-hidden="true" />
+          </Link>
+        </nav>
+      </SignatureArtwork>
       <noscript>
         <p className="no-script shell">
           Explore as páginas pelos links. Os navegadores de serviços e projetos

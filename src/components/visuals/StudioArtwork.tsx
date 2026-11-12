@@ -1,5 +1,4 @@
-import { BrandGlyph } from "./BrandMark";
-import { brandPalette } from "@/data/brand";
+import { BrandMark } from "./BrandMark";
 
 export type ArtworkVariant =
   | "signature"
@@ -23,33 +22,7 @@ export function StudioArtwork({
       aria-hidden="true"
     >
       {isSignature ? (
-        <svg viewBox="0 0 840 490" fill="none" focusable="false">
-          <g className="bc-signature">
-            <rect
-              x="1"
-              y="1"
-              width="838"
-              height="488"
-              fill={brandPalette.black}
-              stroke={brandPalette.lineDark}
-              strokeWidth="2"
-            />
-            <path
-              className="bc-paper"
-              d="M420 0H840V490H420Z"
-              fill={brandPalette.white}
-            />
-            <path
-              className="bc-seam"
-              d="M420 0V490"
-              stroke={brandPalette.white}
-              strokeWidth="2"
-            />
-            <g transform="translate(420 245) scale(1.04)">
-              <BrandGlyph b={brandPalette.white} c={brandPalette.black} />
-            </g>
-          </g>
-        </svg>
+        <BrandMark tone="dark" />
       ) : (
         <svg viewBox="0 0 1000 800" fill="none" focusable="false">
           {variant === "data" ? (

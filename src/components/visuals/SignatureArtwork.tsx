@@ -1,25 +1,19 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 // Keeps the entrance from restarting when the visitor returns via client navigation.
 let signaturePlayed = false;
 
 export function SignatureArtwork({ children }: { children: ReactNode }) {
-  const signature = useRef<HTMLDivElement>(null);
+  const [animate] = useState(() => !signaturePlayed);
 
   useEffect(() => {
-    if (
-      signaturePlayed ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    )
-      return;
     signaturePlayed = true;
-    signature.current?.setAttribute("data-animate", "true");
   }, []);
 
   return (
-    <div className="signature-motion" ref={signature} aria-hidden="true">
+    <div className="home-stage" data-animate={animate ? "true" : undefined}>
       {children}
     </div>
   );

@@ -35,7 +35,11 @@ export function Header({ previewImage }: { previewImage?: ProjectImage }) {
   }
   return (
     <>
-      <header className="site-header">
+      <header
+        className={
+          pathname === "/" ? "site-header site-header--home" : "site-header"
+        }
+      >
         <div className="header-inner shell">
           <Brand />
           <span className="header-edition">
