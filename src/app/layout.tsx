@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Manrope, Cormorant_Garamond } from "next/font/google";
+import localFont from "next/font/local";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
@@ -7,20 +7,23 @@ import { company } from "@/data/company";
 import { projects } from "@/data/projects";
 import "./globals.css";
 
-const inter = Inter({
-  subsets: ["latin"],
+const inter = localFont({
+  src: "./fonts/inter-latin.woff2",
+  weight: "100 900",
   variable: "--font-inter",
   display: "swap",
 });
-const manrope = Manrope({
-  subsets: ["latin"],
+const manrope = localFont({
+  src: "./fonts/manrope-latin.woff2",
+  weight: "200 800",
   variable: "--font-manrope",
   display: "swap",
 });
-const editorial = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  style: ["italic"],
+const editorial = localFont({
+  src: "./fonts/cormorant-garamond-italic-latin.woff2",
+  weight: "400 500",
+  style: "italic",
+  adjustFontFallback: "Times New Roman",
   variable: "--font-editorial",
   display: "swap",
 });
