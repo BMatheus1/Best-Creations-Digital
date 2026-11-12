@@ -562,7 +562,7 @@ summary svg {
 .site-header--home::before {
   content: "";
   position: absolute;
-  inset: 0 0 0 50%;
+  inset: 0 0 0 var(--home-split);
   background: #fff;
   pointer-events: none;
 }

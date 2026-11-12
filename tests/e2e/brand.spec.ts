@@ -8,9 +8,12 @@ async function expectSplit(page: Page) {
   const right = page.locator(".home-surface-light");
   const glyph = page.locator(".home-signature");
   expect((await hero.boundingBox())!.width).toBe(width);
-  expect((await left.boundingBox())!.width).toBe(width / 2);
-  expect((await right.boundingBox())!.x).toBe(width / 2);
-  expect((await right.boundingBox())!.width).toBe(width / 2);
+  expect((await left.boundingBox())!.width).toBe(width * 0.75);
+  expect((await right.boundingBox())!.x).toBe(width * 0.75);
+  expect((await right.boundingBox())!.width).toBe(width * 0.25);
+  const bounds = (await glyph.boundingBox())!;
+  expect(bounds.width).toBe(Math.min(width * 0.5, 552));
+  expect(bounds.x + bounds.width / 2).toBeCloseTo(width * 0.75, 1);
   await expect(left).toHaveCSS("background-color", "rgb(8, 8, 8)");
   await expect(right).toHaveCSS("background-color", "rgb(255, 255, 255)");
   await expect(glyph).toHaveCount(1);
@@ -45,19 +48,26 @@ test("assinatura: entrada elegante e sem repetição ao retornar", async ({
     return {
       first,
       last,
+      durations: animations.map(
+        (animation) => animation.effect!.getTiming().duration,
+      ),
       names: animations.map(
         (animation) => (animation as CSSAnimation).animationName,
       ),
     };
   });
   expect(motion.names).toEqual(["home-b-descend", "home-c-ascend"]);
+  expect(motion.durations).toEqual([2000, 2000]);
   expect(motion.first[0].y).toBeLessThan(motion.last[0].y);
   expect(motion.first[1].y).toBeGreaterThan(motion.last[1].y);
   expect(motion.first[0].x).toBe(motion.last[0].x);
   expect(motion.first[1].x).toBe(motion.last[1].x);
   expect(motion.first[2]).toEqual(motion.last[2]);
-  expect(motion.last[0].right).toBeCloseTo(page.viewportSize()!.width / 2, 1);
-  expect(motion.last[1].left).toBeCloseTo(page.viewportSize()!.width / 2, 1);
+  expect(motion.last[0].right).toBeCloseTo(
+    page.viewportSize()!.width * 0.75,
+    1,
+  );
+  expect(motion.last[1].left).toBeCloseTo(page.viewportSize()!.width * 0.75, 1);
   await page
     .getByRole("link", { name: "Explorar serviços", exact: true })
     .click();
