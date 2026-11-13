@@ -1,6 +1,5 @@
 export const projectFilters = [
   "Catálogo",
-  "Projetos existentes",
   "Websites",
   "Aplicativos",
   "Sistemas",

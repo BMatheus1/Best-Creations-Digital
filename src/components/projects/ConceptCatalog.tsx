@@ -8,9 +8,15 @@ import {
   ArrowRight,
   ArrowUpRight,
   Maximize2,
+  Monitor,
+  Smartphone,
   X,
 } from "lucide-react";
-import { concepts, type CatalogConcept } from "@/data/concepts";
+import {
+  concepts,
+  type CatalogConcept,
+  type PreviewDevice,
+} from "@/data/concepts";
 import { containDialogFocus } from "@/lib/dialog";
 import { ConceptPreview } from "./ConceptPreview";
 
@@ -50,7 +56,11 @@ export function ConceptCatalog() {
 }
 
 function ConceptGallery({ concept }: { concept: CatalogConcept }) {
-  const [index, setIndex] = useState(0);
+  const [device, setDevice] = useState<PreviewDevice>("mobile");
+  const [selected, setSelected] = useState({ mobile: 0, desktop: 0 });
+  const screens = concept[device];
+  const index = selected[device];
+  const [screen, title] = screens[index];
   const [expanded, setExpanded] = useState(false);
   const [choices, setChoices] = useState<Record<string, string>>({});
   const dialog = useRef<HTMLDialogElement>(null);
@@ -74,13 +84,15 @@ function ConceptGallery({ concept }: { concept: CatalogConcept }) {
     setExpanded(true);
   }
   const touch = useRef<{ x: number; y: number } | null>(null);
-  const title = concept.screens[index];
-  const device = concept.mobile.includes(index) ? "mobile" : "desktop";
+  function navigate(id: number) {
+    const next = screens.findIndex(([screenId]) => screenId === id);
+    if (next !== -1) setSelected((current) => ({ ...current, [device]: next }));
+  }
   function move(direction: number) {
-    setIndex(
-      (current) =>
-        (current + direction + concept.screens.length) % concept.screens.length,
-    );
+    setSelected((current) => ({
+      ...current,
+      [device]: (current[device] + direction + screens.length) % screens.length,
+    }));
   }
   const controls = (
     <>
@@ -93,7 +105,7 @@ function ConceptGallery({ concept }: { concept: CatalogConcept }) {
         <ArrowLeft aria-hidden="true" size={18} />
       </button>
       <span aria-live="polite">
-        {index + 1} / {concept.screens.length}
+        {index + 1} / {screens.length}
       </span>
       <button
         type="button"
@@ -152,6 +164,28 @@ function ConceptGallery({ concept }: { concept: CatalogConcept }) {
           }
         }}
       >
+        <div
+          className="concept-devices"
+          role="group"
+          aria-label="Dispositivo da prévia"
+        >
+          <button
+            type="button"
+            aria-pressed={device === "mobile"}
+            onClick={() => setDevice("mobile")}
+          >
+            <Smartphone size={17} aria-hidden="true" /> Celular{" "}
+            <span>{concept.mobile.length} telas</span>
+          </button>
+          <button
+            type="button"
+            aria-pressed={device === "desktop"}
+            onClick={() => setDevice("desktop")}
+          >
+            <Monitor size={17} aria-hidden="true" /> Desktop{" "}
+            <span>{concept.desktop.length} telas</span>
+          </button>
+        </div>
         <div className="concept-controls">
           <span>{title}</span>
           {controls}
@@ -165,7 +199,7 @@ function ConceptGallery({ concept }: { concept: CatalogConcept }) {
           </button>
         </div>
         <div
-          className="concept-stage"
+          className={"concept-stage stage-" + device}
           data-expanded={expanded}
           onTouchStart={(event) => {
             touch.current = {
@@ -186,12 +220,17 @@ function ConceptGallery({ concept }: { concept: CatalogConcept }) {
               move(dx < 0 ? 1 : -1);
           }}
         >
-          <div className={"concept-frame device-" + device} data-screen={title}>
+          <div
+            key={device + screen}
+            className={"concept-frame device-" + device}
+            data-screen={title}
+          >
             {!expanded && (
               <ConceptPreview
                 concept={concept.id}
-                screen={index}
-                navigate={setIndex}
+                screen={screen}
+                device={device}
+                navigate={navigate}
                 choices={choices}
                 select={select}
               />
@@ -203,18 +242,18 @@ function ConceptGallery({ concept }: { concept: CatalogConcept }) {
           role="group"
           aria-label="Miniaturas de prévias"
         >
-          {concept.screens.map((label, position) => (
+          {screens.map(([id, label], position) => (
             <button
               key={label}
               type="button"
               aria-pressed={index === position}
-              onClick={() => setIndex(position)}
+              onClick={() => navigate(id)}
             >
               <Image
                 className="concept-thumb"
-                src={`/catalogo/previas/${concept.id}-${position + 1}.webp`}
-                width={200}
-                height={120}
+                src={`/catalogo/previas/${concept.id}-${device}-${id}.webp`}
+                width={240}
+                height={160}
                 alt=""
                 unoptimized
               />
@@ -258,12 +297,16 @@ function ConceptGallery({ concept }: { concept: CatalogConcept }) {
                 <X size={20} aria-hidden="true" />
               </button>
             </div>
-            <div className="concept-stage">
-              <div className={"concept-frame device-" + device}>
+            <div className={"concept-stage stage-" + device}>
+              <div
+                key={device + screen}
+                className={"concept-frame device-" + device}
+              >
                 <ConceptPreview
                   concept={concept.id}
-                  screen={index}
-                  navigate={setIndex}
+                  screen={screen}
+                  device={device}
+                  navigate={navigate}
                   choices={choices}
                   select={select}
                 />

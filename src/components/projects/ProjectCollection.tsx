@@ -28,10 +28,8 @@ export function ProjectCollection({ items }: { items: CollectionItem[] }) {
     useState<(typeof projectFilters)[number]>("Catálogo");
   const [index, setIndex] = useState(0);
   const touch = useRef<{ x: number; y: number } | null>(null);
-  const filtered = items.filter(
-    (item) =>
-      category === "Projetos existentes" ||
-      item.categories.includes(category as Project["category"]),
+  const filtered = items.filter((item) =>
+    item.categories.some((itemCategory) => itemCategory === category),
   );
   if (category === "Sistemas") {
     const binanceIndex = filtered.findIndex(
@@ -112,11 +110,7 @@ export function ProjectCollection({ items }: { items: CollectionItem[] }) {
       ) : (
         <>
           <div className="collection-toolbar">
-            <p className="eyebrow">
-              {category === "Projetos existentes"
-                ? "SELEÇÃO DO ESTÚDIO"
-                : category}
-            </p>
+            <p className="eyebrow">{category}</p>
             <div className="collection-controls">
               <span aria-live="polite" aria-atomic="true">
                 {String(project ? index + 1 : 0).padStart(2, "0")} /{" "}
@@ -244,10 +238,9 @@ export function ProjectCollection({ items }: { items: CollectionItem[] }) {
               <p>Ainda não há projetos nesta categoria.</p>
               <button
                 className="text-link accented"
-                onClick={() => setCategory("Projetos existentes")}
+                onClick={() => setCategory("Catálogo")}
               >
-                Explorar toda a coleção{" "}
-                <ArrowRight size={16} aria-hidden="true" />
+                Explorar o catálogo <ArrowRight size={16} aria-hidden="true" />
               </button>
             </div>
           )}

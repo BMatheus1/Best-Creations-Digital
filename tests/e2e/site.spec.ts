@@ -72,20 +72,18 @@ test("coleção: anterior, próximo, teclado, página e galeria", async ({
   page,
 }) => {
   await ready(page, "/projetos");
-  await page.getByRole("button", { name: "Projetos existentes" }).click();
+  await page.getByRole("button", { name: "Aplicativos" }).click();
   await expect(page.getByRole("heading", { level: 2 })).toContainText(
     "My Expenses",
   );
   await page.getByRole("button", { name: "Próximo projeto" }).click();
   await expect(page.getByRole("heading", { level: 2 })).toContainText(
-    "Pri Beauty",
+    "EasyDiet",
   );
   await page.getByRole("button", { name: "Projeto anterior" }).click();
   await page.getByRole("region", { name: "Coleção de projetos" }).focus();
   await page.keyboard.press("ArrowLeft");
-  await expect(page.getByRole("heading", { level: 2 })).toHaveText(
-    "Best Restaurant",
-  );
+  await expect(page.getByRole("heading", { level: 2 })).toHaveText("EasyDiet");
   await page.getByRole("button", { name: "Mostrar My Expenses" }).click();
   await page
     .getByRole("link", { name: "Explorar projeto My Expenses" })
@@ -94,9 +92,7 @@ test("coleção: anterior, próximo, teclado, página e galeria", async ({
   await expect(
     page.getByRole("region", { name: "Coleção de projetos" }),
   ).toBeFocused();
-  await expect(page.getByRole("heading", { level: 2 })).toHaveText(
-    "Pri Beauty",
-  );
+  await expect(page.getByRole("heading", { level: 2 })).toHaveText("EasyDiet");
   await page.getByRole("button", { name: "Mostrar My Expenses" }).click();
   await page
     .getByRole("link", { name: "Explorar projeto My Expenses" })
@@ -108,10 +104,8 @@ test("coleção: anterior, próximo, teclado, página e galeria", async ({
   await expect(
     page.getByRole("button", { name: "Ampliar imagem" }),
   ).toBeFocused();
-  await page.getByRole("link", { name: "Pri Beauty" }).click();
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "Pri Beauty",
-  );
+  await page.goto("/projetos/easydiet");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("EasyDiet");
 });
 test("brief completo: validação, persistência, revisão e WhatsApp interceptado", async ({
   page,
@@ -342,4 +336,35 @@ test("reflow equivalente a zoom de 200%", async ({ page, context }, info) => {
     path: info.outputPath("reflow-200-percent.png"),
     fullPage: true,
   });
+});
+
+test("home: atalhos respondem a hover, teclado e redução de movimento", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await ready(page, "/");
+  const nav = page.getByRole("navigation", {
+    name: "Explore a Best Creations",
+  });
+  const links = nav.getByRole("link");
+  await expect(links).toHaveCount(4);
+  for (const link of await links.all()) {
+    await link.hover();
+    await expect(link.locator("svg")).toHaveCSS(
+      "transform",
+      "matrix(1, 0, 0, 1, 3, -3)",
+    );
+  }
+  await page.mouse.move(0, 0);
+  await page.keyboard.press("Tab");
+  const first = links.first();
+  await first.focus();
+  await expect(first.locator("svg")).toHaveCSS(
+    "transform",
+    "matrix(1, 0, 0, 1, 3, -3)",
+  );
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(first.locator("svg")).toHaveCSS("transform", "none");
+  await first.click();
+  await expect(page).toHaveURL(/\/servicos$/);
 });

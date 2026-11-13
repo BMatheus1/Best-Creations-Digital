@@ -1,103 +1,149 @@
-export const concepts = [
+export type PreviewDevice = "mobile" | "desktop";
+export type PreviewScreen = readonly [id: number, label: string];
+
+export type CatalogConcept = {
+  id: string;
+  name: string;
+  category: string;
+  description: string;
+  service: string;
+  desktop: readonly PreviewScreen[];
+  mobile: readonly PreviewScreen[];
+};
+
+export const concepts: CatalogConcept[] = [
   {
     id: "vitta",
-    name: "Vitta",
-    category: "Moda esportiva · Loja digital",
-    description:
-      "Uma loja de moda esportiva com linguagem de campanha e uma compra direta.",
+    name: "Loja de Roupas by Bc.",
+    category: "E-commerce de moda e lifestyle",
+    description: "Moda esportiva, variações de produto e compra pelo celular.",
     service: "Site institucional",
-    screens: [
-      "Página inicial",
-      "Catálogo de produtos",
-      "Detalhes do produto",
-      "Carrinho",
-      "Aplicativo de compras",
+    desktop: [
+      [0, "Página inicial"],
+      [1, "Coleção"],
+      [2, "Produto"],
+      [3, "Carrinho"],
     ],
-    mobile: [4],
-  },
-  {
-    id: "lumina",
-    name: "Lumina",
-    category: "Estética · Agendamento",
-    description:
-      "Um espaço digital de autocuidado, da descoberta dos tratamentos à escolha do horário.",
-    service: "Sistema web",
-    screens: [
-      "Página inicial",
-      "Tratamentos",
-      "Agendamento",
-      "Equipe",
-      "Versão mobile",
+    mobile: [
+      [4, "Início da loja"],
+      [1, "Coleção"],
+      [2, "Produto"],
+      [3, "Sacola"],
+      [5, "Finalizar compra"],
     ],
-    mobile: [4],
   },
   {
     id: "sapore",
-    name: "Sapore",
-    category: "Gastronomia · Delivery",
+    name: "Pizzaria Bc.",
+    category: "Pizzaria, restaurante e delivery",
     description:
-      "Uma pizzaria artesanal com cardápio digital, personalização e acompanhamento simulado.",
+      "Site com cardápio e ofertas da casa, acompanhado de um app para montar, pedir e acompanhar pizzas.",
     service: "Cardápio digital",
-    screens: [
-      "Página inicial",
-      "Cardápio",
-      "Personalizar pizza",
-      "Acompanhar pedido",
-      "Aplicativo de delivery",
+    desktop: [
+      [0, "Página inicial"],
+      [1, "Cardápio"],
+      [8, "Promoções"],
+      [2, "Monte seu pedido"],
+      [5, "Carrinho"],
     ],
-    mobile: [4],
+    mobile: [
+      [4, "Início do app"],
+      [1, "Cardápio"],
+      [2, "Personalizar pizza"],
+      [5, "Carrinho"],
+      [3, "Acompanhar pedido"],
+      [6, "Perfil e histórico"],
+    ],
+  },
+  {
+    id: "lumina",
+    name: "Clínica de Estética by Bc.",
+    category: "Estética, beleza e bem-estar",
+    description:
+      "Tratamentos, equipe e uma agenda para escolher e revisar um horário pelo celular.",
+    service: "Sistema web",
+    desktop: [
+      [0, "Página inicial"],
+      [1, "Tratamentos"],
+      [2, "Agendamento"],
+      [3, "Profissionais"],
+      [5, "Confirmação"],
+    ],
+    mobile: [
+      [4, "Início da clínica"],
+      [1, "Tratamentos"],
+      [2, "Agendamento"],
+      [3, "Profissionais"],
+      [5, "Confirmação"],
+    ],
   },
   {
     id: "nexus",
-    name: "Nexus",
-    category: "Gestão empresarial · SaaS",
+    name: "Sistema de Gestão by Bc.",
+    category: "Gestão empresarial e painéis",
     description:
-      "Um painel de clientes, vendas e indicadores para pequenos negócios.",
+      "Clientes, vendas, indicadores e atividades recentes em um painel para acompanhar o negócio.",
     service: "Sistema web",
-    screens: [
-      "Painel geral",
-      "Gestão de clientes",
-      "Controle de vendas",
-      "Relatórios",
-      "Aplicativo de gestão",
+    desktop: [
+      [0, "Painel geral"],
+      [1, "Clientes"],
+      [2, "Vendas"],
+      [3, "Relatórios"],
+      [5, "Atividades"],
     ],
-    mobile: [4],
+    mobile: [
+      [4, "Resumo do negócio"],
+      [1, "Clientes"],
+      [2, "Indicadores"],
+      [3, "Relatórios"],
+      [5, "Atividades"],
+    ],
   },
   {
     id: "forma",
-    name: "Forma",
-    category: "Arquitetura · Portfólio",
+    name: "Arquitetura by Bc.",
+    category: "Arquitetura, interiores e construção",
     description:
-      "Um portfólio editorial em que luz, fotografia e escala revelam cada projeto.",
+      "Portfólio fotográfico para apresentar projetos, o escritório e seus canais de contato.",
     service: "Site institucional",
-    screens: [
-      "Página inicial",
-      "Portfólio",
-      "Detalhes do projeto",
-      "O escritório",
-      "Versão mobile",
+    desktop: [
+      [0, "Página inicial"],
+      [1, "Galeria de projetos"],
+      [2, "Projeto individual"],
+      [3, "O escritório"],
+      [5, "Contato"],
     ],
-    mobile: [4],
+    mobile: [
+      [4, "Início do portfólio"],
+      [1, "Galeria de projetos"],
+      [2, "Projeto individual"],
+      [3, "O escritório"],
+      [5, "Contato"],
+    ],
   },
   {
     id: "wellness",
-    name: "Wellness",
-    category: "Academia · Website e aplicativo",
+    name: "Academia by Bc.",
+    category: "Academia, treino e aplicativo do aluno",
     description:
-      "Um site para conhecer a academia e um aplicativo de treino e agenda para alunos.",
+      "Site da academia e app para consultar o treino, a evolução e a agenda de aulas.",
     service: "Aplicativo",
-    screens: [
-      "Página inicial",
-      "Planos e unidades",
-      "Modalidades e aulas",
-      "Aplicativo do aluno",
-      "Agendamento de aulas",
+    desktop: [
+      [0, "Página inicial"],
+      [1, "Planos e unidades"],
+      [2, "Modalidades e aulas"],
+      [4, "Agenda de aulas"],
     ],
-    mobile: [3, 4],
+    mobile: [
+      [5, "Início do aluno"],
+      [3, "Treino do dia"],
+      [6, "Exercícios"],
+      [4, "Agenda de aulas"],
+      [7, "Evolução"],
+      [8, "Perfil"],
+    ],
   },
 ];
-
-export type CatalogConcept = (typeof concepts)[number];
 
 export function getConcept(id: string) {
   return concepts.find((concept) => concept.id === id);

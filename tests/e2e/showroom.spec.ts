@@ -17,12 +17,12 @@ async function openLab(page: Page, path: string) {
 }
 test("showroom: filtros, índice, demos e links reais", async ({ page }) => {
   await page.goto("/projetos");
-  await page.getByRole("button", { name: "Projetos existentes" }).click();
+  await page.getByRole("button", { name: "Aplicativos" }).click();
   await expect(page.locator("[data-active-project]")).toHaveAttribute(
     "data-active-project",
     "my-expenses",
   );
-  await expect(page.getByText("01 / 08", { exact: true })).toBeVisible();
+  await expect(page.getByText("01 / 02", { exact: true })).toBeVisible();
   await expect(
     page.getByRole("link", { name: /Visitar aplicação/ }),
   ).toHaveAttribute("href", "https://myexpensesfinance.com");
@@ -98,7 +98,7 @@ test("showroom: swipe mobile mantém os controles visíveis", async ({
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/projetos");
-  await page.getByRole("button", { name: "Projetos existentes" }).click();
+  await page.getByRole("button", { name: "Aplicativos" }).click();
   const visual = page.locator(".showroom-visual");
   await visual.scrollIntoViewIfNeeded();
   const box = (await visual.boundingBox())!;
@@ -117,9 +117,7 @@ test("showroom: swipe mobile mantém os controles visíveis", async ({
     type: "touchEnd",
     touchPoints: [],
   });
-  await expect(page.getByRole("heading", { level: 2 })).toHaveText(
-    "Pri Beauty",
-  );
+  await expect(page.getByRole("heading", { level: 2 })).toHaveText("EasyDiet");
   await expect(
     page.getByRole("button", { name: "Projeto anterior" }),
   ).toBeVisible();

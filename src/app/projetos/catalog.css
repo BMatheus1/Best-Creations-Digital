@@ -29,8 +29,8 @@
 .concept-index button {
   display: flex;
   align-items: center;
-  gap: 10px;
-  min-height: 50px;
+  gap: 8px;
+  min-height: 58px;
   background: var(--background-primary);
   border: 0;
   padding: 10px 14px;
@@ -63,7 +63,7 @@
   align-items: start;
 }
 .concept-info h3 {
-  font: 400 clamp(40px, 5vw, 76px)/1 var(--heading);
+  font: 400 clamp(34px, 4vw, 62px)/1 var(--heading);
   letter-spacing: -0.055em;
   margin: 12px 0;
 }
@@ -88,6 +88,32 @@
 }
 .concept-gallery {
   min-width: 0;
+}
+.concept-devices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.concept-devices button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid var(--border-subtle);
+  padding: 8px 12px;
+  min-height: 44px;
+  font-size: 13px;
+}
+.concept-devices button span {
+  font-size: 11px;
+}
+.concept-devices button[aria-pressed="true"] {
+  background: #f5f4f0;
+  color: #080808;
+}
+.concept-devices button[aria-pressed="true"]:focus-visible {
+  outline-color: #080808;
+  outline-offset: -4px;
 }
 .concept-controls {
   display: flex;
@@ -128,8 +154,12 @@
   border-radius: 6px;
   scrollbar-width: thin;
 }
+.concept-stage.stage-mobile {
+  height: clamp(505px, 55vw, 640px);
+  background: #161717;
+}
 .concept-frame.device-mobile {
-  width: min(100%, 295px);
+  width: min(100%, 385px);
   border: 5px solid #353536;
   border-radius: 22px;
 }
@@ -141,7 +171,7 @@
   scrollbar-width: thin;
 }
 .concept-thumbnails button {
-  flex: 1 0 106px;
+  flex: 1 0 104px;
   text-align: left;
   min-height: 76px;
   border: 1px solid var(--border-subtle);
@@ -160,7 +190,7 @@
 .concept-thumb {
   display: block;
   width: 100%;
-  height: 44px;
+  height: 74px;
   object-fit: contain;
   background: #191a1c;
   margin-bottom: 5px;
@@ -179,7 +209,8 @@
 .concept-dialog::backdrop {
   background: #000c;
 }
-.concept-dialog .concept-stage {
+.concept-dialog .concept-stage,
+.concept-dialog .concept-stage.stage-mobile {
   height: min(72dvh, 700px);
 }
 
@@ -313,7 +344,24 @@
   margin: 0;
 }
 .device-mobile .concept-preview {
-  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 16px 0;
+}
+.device-mobile .demo-content {
+  flex: 1;
+}
+.device-mobile .demo-detail,
+.device-mobile .concept-preview .demo-hero {
+  grid-template-columns: minmax(0, 1fr);
+}
+.demo-feature {
+  padding: 12px;
+  margin-block: 12px;
+  border: 1px solid var(--demo-line);
+}
+.demo-nexus .demo-content {
+  min-height: inherit;
 }
 .device-mobile h4 {
   font-size: 26px;
@@ -322,12 +370,24 @@
   aspect-ratio: 1.65;
 }
 .demo-mobile-nav {
+  position: sticky;
+  bottom: 0;
   border-top: 1px solid var(--demo-line);
-  padding-top: 10px;
+  margin: 14px -16px 0;
+  padding: 8px;
+  background: var(--demo-paper);
+}
+.demo-mobile-nav button[aria-current="page"] {
+  color: var(--demo-on-accent);
+  background: var(--demo-accent);
+}
+.demo-mobile-nav button:focus-visible {
+  outline-offset: -2px;
 }
 .demo-mobile-nav button {
   flex: 1;
   padding-inline: 4px;
+  min-height: 44px;
 }
 
 .demo-vitta .demo-hero h4 {
@@ -348,7 +408,7 @@
 .demo-lumina .demo-hero {
   grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
 }
-.demo-lumina .demo-hero > div {
+.device-desktop .demo-lumina .demo-hero > div {
   grid-area: 1 / 1;
 }
 .demo-lumina .demo-hero img {
@@ -472,7 +532,7 @@
 .demo-wellness .demo-brand {
   color: #d1fb8c;
 }
-.demo-wellness .demo-hero > div {
+.device-desktop .demo-wellness .demo-hero > div {
   grid-area: 1 / 1;
 }
 
@@ -496,6 +556,9 @@
   .concept-stage {
     height: clamp(335px, 78vw, 440px);
   }
+  .concept-stage.stage-mobile {
+    height: clamp(490px, 125vw, 560px);
+  }
   .concept-controls {
     gap: 5px;
   }
@@ -514,5 +577,17 @@
   }
   .nexus-layout aside {
     flex-basis: 77px;
+  }
+}
+@media (max-width: 390px) {
+  .concept-index {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .concept-index button,
+  .concept-thumbnails button,
+  .forma-view .concept-photo {
+    transition: none;
   }
 }

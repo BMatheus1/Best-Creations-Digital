@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
+import { getConcept, type PreviewDevice } from "@/data/concepts";
 
 const photos = {
   vitta: "Corredora com roupa esportiva em cenário urbano",
@@ -13,6 +14,7 @@ type PhotoName = keyof typeof photos;
 type Props = {
   concept: string;
   screen: number;
+  device: PreviewDevice;
   navigate: (screen: number) => void;
   choices: Record<string, string>;
   select: (key: string, value: string) => void;
@@ -144,7 +146,7 @@ function Rows({
   );
 }
 
-function Vitta({ screen, navigate, choices, select }: Props) {
+function Vitta({ screen, device, navigate, choices, select }: Props) {
   const item = choices.product ?? products[0];
   const size = choices.size ?? "M";
   const color = choices.color ?? "Preto";
@@ -225,6 +227,7 @@ function Vitta({ screen, navigate, choices, select }: Props) {
               );
               select("price", String(price));
               select("quantity", "1");
+              select("checkout", "");
               navigate(3);
             }}
           >
@@ -253,6 +256,34 @@ function Vitta({ screen, navigate, choices, select }: Props) {
           <p>Seu carrinho está vazio.</p>
         )}
         <Action onClick={() => navigate(1)}>Ver produtos</Action>
+        {device === "mobile" && quantity > 0 && (
+          <Action onClick={() => navigate(5)}>Finalizar compra</Action>
+        )}
+      </>
+    );
+  if (screen === 5)
+    return (
+      <>
+        <h4>Resumo da compra</h4>
+        {quantity ? (
+          <>
+            <Rows
+              rows={[
+                [choices.bag, choices.bagDetail],
+                ["Entrega padrão", "3 a 5 dias úteis · Grátis"],
+                ["Total", money.format(Number(choices.price))],
+              ]}
+            />
+            <Action onClick={() => select("checkout", "confirmado")}>
+              Simular compra
+            </Action>
+            {choices.checkout && (
+              <p role="status">Compra simulada. Nenhuma cobrança foi feita.</p>
+            )}
+          </>
+        ) : (
+          <Action onClick={() => navigate(1)}>Escolher produtos</Action>
+        )}
       </>
     );
   return (
@@ -266,10 +297,6 @@ function Vitta({ screen, navigate, choices, select }: Props) {
         ]}
         action="Ver"
         onSelect={open}
-      />
-      <MobileNav
-        items={["Início", "Coleção", "Carrinho"]}
-        onSelect={(i) => navigate([4, 1, 3][i])}
       />
     </>
   );
@@ -331,13 +358,21 @@ function Lumina({ screen, navigate, choices, select }: Props) {
     return (
       <>
         <Photo name="lumina" />
-        <h4>Seu momento Lumina</h4>
+        <h4>Seu momento de cuidado</h4>
         <Rows rows={[[treatment, "Sessão de autocuidado"]]} />
         <Action onClick={() => navigate(2)}>Escolher horário</Action>
-        <MobileNav
-          items={["Início", "Tratamentos", "Equipe"]}
-          onSelect={(i) => navigate([4, 1, 3][i])}
-        />
+      </>
+    );
+  if (screen === 5)
+    return (
+      <>
+        <h4>Confirmação de horário</h4>
+        {choices.booking ? (
+          <p role="status">Agendamento simulado: {choices.booking}.</p>
+        ) : (
+          <p>Escolha um tratamento e horário para ver seu resumo.</p>
+        )}
+        <Action onClick={() => navigate(2)}>Voltar à agenda</Action>
       </>
     );
   const date = choices.date ?? "12/12";
@@ -361,46 +396,73 @@ function Lumina({ screen, navigate, choices, select }: Props) {
         onChange={(v) => select("hour", v)}
       />
       <Action
-        onClick={() =>
+        onClick={() => {
           select(
             "booking",
             treatment + " · " + person + " · " + date + " às " + hour,
-          )
-        }
+          );
+          navigate(5);
+        }}
       >
-        Preparar resumo
+        Revisar horário
       </Action>
-      {choices.booking && (
-        <p role="status">Agendamento simulado: {choices.booking}.</p>
-      )}
     </>
   );
 }
 
-function Sapore({ screen, navigate, choices, select }: Props) {
+function Pizzaria({ screen, device, navigate, choices, select }: Props) {
   const pizza = choices.pizza ?? pizzas[0];
   const size = choices.pizzaSize ?? "Média";
   const extra = choices.extra ?? "Sem adicional";
+  const offer = choices.offer === "retirada" && size === "Média";
   const total =
-    (size === "Grande" ? 79 : 59) + (extra === "Sem adicional" ? 0 : 8);
+    (size === "Grande" ? 79 : offer ? 49 : 59) +
+    (extra === "Sem adicional" ? 0 : 8);
   function choose(name: string) {
     select("pizza", name);
+    select("offer", "");
     navigate(2);
   }
   if (screen === 0)
     return (
-      <Hero
-        photo="sapore"
-        title="Da massa ao forno."
-        subtitle="Fermentação lenta. Ingredientes frescos. Pizza de verdade."
-        action="Abrir cardápio"
-        onAction={() => navigate(1)}
-      />
+      <>
+        <Hero
+          photo="sapore"
+          title="Da massa ao forno."
+          subtitle="Fermentação lenta. Ingredientes frescos. Pizza de verdade."
+          action="Abrir cardápio"
+          onAction={() => navigate(1)}
+        />
+        <div className="demo-feature">
+          <strong>Destaque da casa · Margherita</strong>
+          <Action onClick={() => navigate(8)}>Ver promoções</Action>
+        </div>
+      </>
+    );
+  if (screen === 8)
+    return (
+      <>
+        <h4>Ofertas da casa</h4>
+        <p>Margherita média com preço especial para retirada.</p>
+        <Photo name="sapore" />
+        <Action
+          onClick={() => {
+            select("pizza", pizzas[0]);
+            select("pizzaSize", "Média");
+            select("extra", "Sem adicional");
+            select("offer", "retirada");
+            navigate(2);
+          }}
+        >
+          Montar oferta
+        </Action>
+      </>
     );
   if (screen === 1)
     return (
       <>
         <h4>Do nosso forno</h4>
+        {choices.orderNotice && <p role="status">{choices.orderNotice}</p>}
         <Rows
           rows={pizzas.map((name, i) => [
             name,
@@ -421,6 +483,7 @@ function Sapore({ screen, navigate, choices, select }: Props) {
         <Photo name="sapore" />
         <div>
           <h4>{pizza}</h4>
+          {offer && <p>Oferta para retirada no balcão</p>}
           <Options
             label="Tamanho"
             values={["Média", "Grande"]}
@@ -437,8 +500,8 @@ function Sapore({ screen, navigate, choices, select }: Props) {
             onClick={() => {
               select("order", pizza + " · " + size + " · " + extra);
               select("orderTotal", money.format(total));
-              select("progress", "0");
-              navigate(3);
+              select("pickup", offer ? "Retirada no balcão" : "Entrega");
+              navigate(5);
             }}
           >
             Adicionar · {money.format(total)}
@@ -446,20 +509,79 @@ function Sapore({ screen, navigate, choices, select }: Props) {
         </div>
       </div>
     );
+  if (screen === 5)
+    return (
+      <>
+        <h4>Seu carrinho</h4>
+        {choices.order ? (
+          <>
+            <Rows
+              rows={[
+                [choices.order, choices.orderTotal],
+                [choices.pickup, "Pedido demonstrativo"],
+              ]}
+            />
+            <Action
+              onClick={() => {
+                select("activeOrder", choices.order);
+                select("activeTotal", choices.orderTotal);
+                select("activePickup", choices.pickup);
+                select("progress", "0");
+                select("order", "");
+                navigate(device === "mobile" ? 3 : 1);
+                if (device === "desktop")
+                  select(
+                    "orderNotice",
+                    "Pedido simulado. Nenhum pedido foi enviado.",
+                  );
+              }}
+            >
+              Simular pedido
+            </Action>
+            <Action onClick={() => select("order", "")}>Remover pizza</Action>
+          </>
+        ) : (
+          <p>Seu carrinho está vazio.</p>
+        )}
+        <Action onClick={() => navigate(1)}>Voltar ao cardápio</Action>
+      </>
+    );
+  if (screen === 6)
+    return (
+      <>
+        <h4>Perfil e pedidos</h4>
+        <div className="demo-feature">
+          <strong>Ana Ribeiro</strong>
+          <p>Cliente demonstrativa</p>
+        </div>
+        <Rows
+          rows={[
+            ...(choices.activeOrder
+              ? [[choices.activeOrder, "Pedido simulado recente"] as const]
+              : []),
+            ["Calabresa artesanal · Grande", "Entregue · Pedido anterior"],
+            ["Margherita · Média", "Entregue · Pedido anterior"],
+          ]}
+        />
+        <Action onClick={() => navigate(3)}>Ver pedido atual</Action>
+      </>
+    );
   if (screen === 3) {
     const progress = Number(choices.progress ?? 0);
     const stages = [
-      "No carrinho",
+      "Pedido recebido",
       "Preparando",
       "No forno",
-      "Saiu para entrega",
+      choices.activePickup === "Retirada no balcão"
+        ? "Pronto para retirada"
+        : "Saiu para entrega",
     ];
     return (
       <>
         <h4>Acompanhe seu pedido</h4>
         <p>
-          {choices.order ?? "Pedido exemplo · Margherita média"}{" "}
-          {choices.orderTotal ?? money.format(59)}
+          {choices.activeOrder ?? "Pedido exemplo · Margherita média"}{" "}
+          {choices.activeTotal ?? money.format(59)}
         </p>
         <ol className="demo-timeline">
           {stages.map((stage, i) => (
@@ -470,7 +592,7 @@ function Sapore({ screen, navigate, choices, select }: Props) {
         </ol>
         {progress < 3 && (
           <Action onClick={() => select("progress", String(progress + 1))}>
-            {progress === 0 ? "Simular pedido" : "Avançar simulação"}
+            Avançar simulação
           </Action>
         )}
         <p role="status">{stages[progress]} · Nenhum pedido real</p>
@@ -486,15 +608,11 @@ function Sapore({ screen, navigate, choices, select }: Props) {
         action="Montar"
         onSelect={choose}
       />
-      <MobileNav
-        items={["Cardápio", "Pedido"]}
-        onSelect={(i) => navigate(i === 0 ? 4 : 3)}
-      />
     </>
   );
 }
 
-function Nexus({ screen, choices, select, navigate }: Props) {
+function Nexus({ screen, device, choices, select, navigate }: Props) {
   const filter = choices.filter ?? "Todos";
   const sum = clients.reduce((total, client) => total + client[2], 0);
   const filtered = clients.filter(
@@ -502,21 +620,25 @@ function Nexus({ screen, choices, select, navigate }: Props) {
   );
   return (
     <div className="nexus-layout">
-      {screen !== 4 && (
+      {device === "desktop" && (
         <aside>
-          <strong>Nexus</strong>
-          {["Visão geral", "Clientes", "Vendas", "Relatórios"].map(
-            (label, i) => (
-              <button
-                type="button"
-                key={label}
-                aria-current={screen === i ? "page" : undefined}
-                onClick={() => navigate(i)}
-              >
-                {label}
-              </button>
-            ),
-          )}
+          <strong>Gestão Bc.</strong>
+          {[
+            [0, "Visão geral"],
+            [1, "Clientes"],
+            [2, "Vendas"],
+            [3, "Relatórios"],
+            [5, "Atividades"],
+          ].map(([i, label]) => (
+            <button
+              type="button"
+              key={label}
+              aria-current={screen === i ? "page" : undefined}
+              onClick={() => navigate(Number(i))}
+            >
+              {label}
+            </button>
+          ))}
         </aside>
       )}
       <div className="nexus-body">
@@ -525,13 +647,17 @@ function Nexus({ screen, choices, select, navigate }: Props) {
             [
               "Visão geral",
               "Clientes",
-              "Pipeline de vendas",
+              device === "mobile"
+                ? "Indicadores de vendas"
+                : "Etapas de vendas",
               "Relatório comercial",
               "Resumo da operação",
+              "Atividades recentes",
             ][screen]
           }
         </h4>
-        {[0, 3, 4].includes(screen) && (
+        {([0, 3, 4].includes(screen) ||
+          (device === "mobile" && screen === 2)) && (
           <div className="nexus-metrics">
             <div>
               <small>Carteira comercial</small>
@@ -543,7 +669,7 @@ function Nexus({ screen, choices, select, navigate }: Props) {
             </div>
           </div>
         )}
-        {[0, 3].includes(screen) && (
+        {([0, 3].includes(screen) || (device === "mobile" && screen === 2)) && (
           <div className="nexus-chart" aria-label="Valor por cliente">
             {clients.map(([name, , value]) => (
               <div key={name}>
@@ -554,7 +680,7 @@ function Nexus({ screen, choices, select, navigate }: Props) {
             ))}
           </div>
         )}
-        {[1, 2].includes(screen) && (
+        {(screen === 1 || (screen === 2 && device === "desktop")) && (
           <>
             <Options
               label="Filtrar por etapa"
@@ -573,11 +699,17 @@ function Nexus({ screen, choices, select, navigate }: Props) {
         {screen === 4 && (
           <>
             <Rows rows={clients.map(([name, stage]) => [name, stage])} />
-            <MobileNav
-              items={["Resumo", "Clientes", "Vendas"]}
-              onSelect={(i) => navigate([4, 1, 2][i])}
-            />
+            <Action onClick={() => navigate(5)}>Ver atividades</Action>
           </>
+        )}
+        {screen === 5 && (
+          <Rows
+            rows={[
+              ["Ateliê 41 · Venda fechada", "Hoje · R$ 7.200,00"],
+              ["Casa Norte · Proposta enviada", "Ontem · R$ 4.800,00"],
+              ["Café Horizonte · Contato registrado", "Ontem · R$ 2.900,00"],
+            ]}
+          />
         )}
       </div>
     </div>
@@ -652,6 +784,32 @@ function Forma({ screen, navigate, choices, select }: Props) {
         </Action>
       </>
     );
+  if (screen === 5)
+    return (
+      <>
+        <h4>Vamos conversar?</h4>
+        <p>Conte ao escritório o tipo de projeto que você tem em mente.</p>
+        <Options
+          label="Tipo de projeto"
+          values={["Residencial", "Interiores", "Paisagismo"]}
+          value={choices.inquiry ?? "Residencial"}
+          onChange={(value) => select("inquiry", value)}
+        />
+        <Action
+          onClick={() =>
+            select("contactSummary", choices.inquiry ?? "Residencial")
+          }
+        >
+          Preparar contato
+        </Action>
+        {choices.contactSummary && (
+          <p role="status">
+            Interesse em {choices.contactSummary}. Contato demonstrativo, sem
+            envio.
+          </p>
+        )}
+      </>
+    );
   if (screen === 3)
     return (
       <>
@@ -662,6 +820,7 @@ function Forma({ screen, navigate, choices, select }: Props) {
           cada decisão, da implantação ao detalhe.
         </p>
         <Photo name="forma" />
+        <Action onClick={() => navigate(5)}>Contato</Action>
       </>
     );
   return (
@@ -669,37 +828,12 @@ function Forma({ screen, navigate, choices, select }: Props) {
       <Photo name="forma" />
       <h4>{places[0]}</h4>
       <p>Concreto, vidro e sombra no ritmo da paisagem.</p>
-      <MobileNav
-        items={["Obras", "Escritório"]}
-        onSelect={(i) => navigate(i === 0 ? 1 : 3)}
-      />
+      <Action onClick={() => navigate(1)}>Ver projetos</Action>
     </>
   );
 }
 
-function MobileNav({
-  items,
-  onSelect,
-}: {
-  items: string[];
-  onSelect: (index: number) => void;
-}) {
-  return (
-    <div
-      className="demo-mobile-nav"
-      role="group"
-      aria-label="Navegação do aplicativo"
-    >
-      {items.map((item, i) => (
-        <button type="button" key={item} onClick={() => onSelect(i)}>
-          {item}
-        </button>
-      ))}
-    </div>
-  );
-}
-
-function Wellness({ screen, navigate, choices, select }: Props) {
+function Wellness({ screen, device, navigate, choices, select }: Props) {
   if (screen === 0)
     return (
       <Hero
@@ -746,49 +880,88 @@ function Wellness({ screen, navigate, choices, select }: Props) {
         />
       </>
     );
-  if (screen === 3) {
-    const tab = choices.appTab ?? "Treino";
+  if (screen === 5)
     return (
       <>
-        <h4>{tab === "Treino" ? "Treino do dia" : tab}</h4>
-        {tab === "Treino" && (
-          <Rows
-            rows={[
-              ["Agachamento", "3 séries · 10 repetições"],
-              ["Remada", "3 séries · 12 repetições"],
-              ["Prancha", "3 séries · 30 segundos"],
-            ]}
-          />
-        )}
-        {tab === "Evolução" && (
-          <Rows
-            rows={[
-              ["Outubro", "8 treinos concluídos"],
-              ["Novembro", "12 treinos concluídos"],
-            ]}
-          />
-        )}
-        {tab === "Histórico" && (
-          <Rows
-            rows={[
-              ["10/11", "Treino de membros inferiores"],
-              ["08/11", "Treino de membros superiores"],
-            ]}
-          />
-        )}
-        {tab === "Perfil" && (
-          <Rows rows={[["Marina Alves", "Aluna fictícia · Plano Completo"]]} />
-        )}
-        <MobileNav
-          items={["Treino", "Evolução", "Histórico", "Perfil"]}
-          onSelect={(i) =>
-            select("appTab", ["Treino", "Evolução", "Histórico", "Perfil"][i])
-          }
+        <h4>Olá, Marina</h4>
+        <div className="demo-feature">
+          <strong>Seu próximo treino</strong>
+          <p>Força e mobilidade · 35 min · 3 exercícios</p>
+          <Action onClick={() => navigate(3)}>Ver treino do dia</Action>
+        </div>
+        <Rows
+          rows={[
+            ["Esta semana", "3 de 4 treinos concluídos"],
+            ["Próxima aula", "Funcional · 12/12 · 08:00"],
+          ]}
         />
-        <Action onClick={() => navigate(4)}>Agenda de aulas</Action>
+        <Action onClick={() => navigate(4)}>Consultar agenda</Action>
       </>
     );
-  }
+  if (screen === 3)
+    return (
+      <>
+        <h4>Treino do dia</h4>
+        <Photo name="wellness" />
+        <p>Força e mobilidade · 35 minutos</p>
+        <Action onClick={() => navigate(6)}>Abrir exercícios</Action>
+      </>
+    );
+  if (screen === 6)
+    return (
+      <>
+        <h4>Exercícios</h4>
+        <Rows
+          rows={[
+            ["Agachamento", "3 séries · 10 repetições"],
+            ["Remada", "3 séries · 12 repetições"],
+            ["Prancha", "3 séries · 30 segundos"],
+          ]}
+          action="Concluir"
+          onSelect={(name) => select("exercise:" + name, "concluído")}
+        />
+        <p role="status">
+          {
+            Object.keys(choices).filter((key) => key.startsWith("exercise:"))
+              .length
+          }{" "}
+          de 3 exercícios concluídos
+        </p>
+      </>
+    );
+  if (screen === 7)
+    return (
+      <>
+        <h4>Sua evolução</h4>
+        <label>
+          Meta semanal <progress value={3} max={4} /> 3 de 4 treinos
+        </label>
+        <Rows
+          rows={[
+            ["Novembro", "12 treinos concluídos"],
+            ["Outubro", "8 treinos concluídos"],
+            ["10/11", "Treino de membros inferiores"],
+            ["08/11", "Treino de membros superiores"],
+          ]}
+        />
+      </>
+    );
+  if (screen === 8)
+    return (
+      <>
+        <h4>Perfil do aluno</h4>
+        <div className="demo-feature">
+          <strong>Marina Alves</strong>
+          <p>Aluna fictícia · Plano Completo</p>
+        </div>
+        <Rows
+          rows={[
+            ["Unidade", "Centro"],
+            ["Plano", "Musculação e aulas em grupo"],
+          ]}
+        />
+      </>
+    );
   const hour = choices.classHour ?? "08:00";
   return (
     <>
@@ -808,10 +981,9 @@ function Wellness({ screen, navigate, choices, select }: Props) {
           Aula selecionada às {choices.classBooking}. Reserva demonstrativa.
         </p>
       )}
-      <MobileNav
-        items={["Meu treino", "Modalidades"]}
-        onSelect={(i) => navigate(i === 0 ? 3 : 2)}
-      />
+      {device === "desktop" && (
+        <Action onClick={() => navigate(2)}>Ver modalidades</Action>
+      )}
     </>
   );
 }
@@ -819,7 +991,7 @@ function Wellness({ screen, navigate, choices, select }: Props) {
 const previews: Record<string, (props: Props) => ReactNode> = {
   vitta: Vitta,
   lumina: Lumina,
-  sapore: Sapore,
+  sapore: Pizzaria,
   nexus: Nexus,
   forma: Forma,
   wellness: Wellness,
@@ -827,12 +999,46 @@ const previews: Record<string, (props: Props) => ReactNode> = {
 
 export function ConceptPreview(props: Props) {
   const Preview = previews[props.concept];
+  const concept = getConcept(props.concept)!;
+  const navigation = concept.mobile.filter(([id]) => {
+    if (props.concept === "sapore") return [4, 1, 5, 6].includes(id);
+    if (props.concept === "wellness") return [5, 3, 4, 8].includes(id);
+    return id !== 2 && id !== 5;
+  });
+  const shortLabels: Record<string, string> = {
+    "Início do app": "Início",
+    "Início da loja": "Início",
+    "Início da clínica": "Início",
+    "Início do portfólio": "Início",
+    "Início do aluno": "Início",
+    "Resumo do negócio": "Resumo",
+    "Perfil e histórico": "Perfil",
+    "Galeria de projetos": "Projetos",
+    "Agenda de aulas": "Agenda",
+    "Treino do dia": "Treino",
+  };
   return (
     <div className={"concept-preview demo-" + props.concept}>
-      {!(props.concept === "nexus" && props.screen !== 4) && (
-        <div className="demo-brand">{props.concept}</div>
+      {!(props.concept === "nexus" && props.device === "desktop") && (
+        <div className="demo-brand">{concept.name}</div>
       )}
-      <Preview {...props} />
+      <div className="demo-content">
+        <Preview {...props} />
+      </div>
+      {props.device === "mobile" && (
+        <nav className="demo-mobile-nav" aria-label="Navegação da demonstração">
+          {navigation.map(([id, label]) => (
+            <button
+              type="button"
+              key={id}
+              aria-current={props.screen === id ? "page" : undefined}
+              onClick={() => props.navigate(id)}
+            >
+              {shortLabels[label] ?? label}
+            </button>
+          ))}
+        </nav>
+      )}
     </div>
   );
 }

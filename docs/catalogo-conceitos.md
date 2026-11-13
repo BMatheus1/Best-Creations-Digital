@@ -1,17 +1,17 @@
 # Catálogo de conceitos
 
-O filtro **Catálogo** abre a vitrine de `/projetos`. **Projetos existentes** lista o acervo do showroom, com acesso às categorias e às páginas individuais.
+O filtro **Catálogo** abre a vitrine de `/projetos`. As categorias ao lado do catálogo continuam dando acesso ao acervo do showroom e às páginas individuais.
 
-| Conceito | Experiência                                                          |
-| -------- | -------------------------------------------------------------------- |
-| Vitta    | Loja esportiva, escolha de produto e variação, carrinho e aplicativo |
-| Lumina   | Tratamentos, profissionais e agendamento de spa                      |
-| Sapore   | Cardápio, personalização de pizzas e acompanhamento de pedidos       |
-| Nexus    | Painel de gestão, clientes, vendas e relatórios                      |
-| Forma    | Portfólio de arquitetura, filtros e visualização de ambientes        |
-| Wellness | Site de academia, aplicativo do aluno e agenda de aulas              |
+| Conceito                   | Experiência                                                                     |
+| -------------------------- | ------------------------------------------------------------------------------- |
+| Loja de Roupas by Bc.      | Coleção, variantes, sacola e compra simulada                                    |
+| Pizzaria Bc.               | Site com ofertas e app com personalização, carrinho, acompanhamento e histórico |
+| Clínica de Estética by Bc. | Tratamentos, profissionais, agendamento e confirmação                           |
+| Sistema de Gestão by Bc.   | Resumo, clientes, indicadores, relatórios e atividades                          |
+| Arquitetura by Bc.         | Galeria, projetos individuais, escritório e contato                             |
+| Academia by Bc.            | Início do aluno, treino, exercícios, agenda, evolução e perfil                  |
 
-Cada conceito tem cinco telas, incluindo uma experiência mobile. As miniaturas WebP são capturas das interfaces React. A galeria oferece setas, teclado, swipe e visualização ampliada. O orçamento valida a referência pelo catálogo e inclui o nome do conceito na mensagem preparada para o WhatsApp.
+A galeria começa pelo celular e permite alternar para desktop. São 32 prévias de celular e 28 de desktop. As miniaturas WebP são capturas das interfaces React. A galeria oferece setas, teclado, swipe e visualização ampliada. O orçamento valida a referência pelo catálogo e inclui o nome do conceito na mensagem preparada para o WhatsApp.
 
 ## Arquivos criados
 
@@ -19,7 +19,7 @@ Cada conceito tem cinco telas, incluindo uma experiência mobile. As miniaturas 
 - `src/components/projects/ConceptCatalog.tsx`
 - `src/components/projects/ConceptPreview.tsx`
 - `src/app/projetos/catalog.css`
-- `public/catalogo/` — seis fotografias WebP e 30 miniaturas em `previas/`
+- `public/catalogo/` — seis fotografias WebP e 60 miniaturas em `previas/`
 - `tests/e2e/catalog.spec.ts`
 - `docs/catalogo-conceitos.md`
 
@@ -36,6 +36,7 @@ Cada conceito tem cinco telas, incluindo uma experiência mobile. As miniaturas 
 - `tests/e2e/brand.spec.ts`
 - `tests/e2e/showroom.spec.ts`
 - `tests/e2e/site.spec.ts`
+- `src/app/home.css` — transições de fundo e borda e movimento das setas nos quatro atalhos da home
 
 ## Fotografias
 

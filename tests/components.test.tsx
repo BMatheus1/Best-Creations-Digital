@@ -140,15 +140,13 @@ describe("Exploradores", () => {
   it("navega pela coleção com controles e teclado", async () => {
     const user = userEvent.setup();
     render(<ProjectCollection items={projects} />);
-    await user.click(
-      screen.getByRole("button", { name: "Projetos existentes" }),
-    );
+    await user.click(screen.getByRole("button", { name: "Aplicativos" }));
     expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
       "My Expenses",
     );
     await user.click(screen.getByRole("button", { name: "Próximo projeto" }));
     expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
-      "Pri Beauty",
+      "EasyDiet",
     );
     await user.click(screen.getByRole("button", { name: "Projeto anterior" }));
     const collection = screen.getByRole("region", {
@@ -157,7 +155,7 @@ describe("Exploradores", () => {
     collection.focus();
     await user.keyboard("{ArrowLeft}");
     expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
-      "Best Restaurant",
+      "EasyDiet",
     );
     await user.click(
       screen.getByRole("button", { name: "Mostrar My Expenses" }),
@@ -169,7 +167,7 @@ describe("Exploradores", () => {
     await user.keyboard("{ArrowRight}");
     expect(collection).toHaveFocus();
     expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
-      "Pri Beauty",
+      "EasyDiet",
     );
   });
   it("oferece estado honesto quando a prévia está ausente", () => {
@@ -189,10 +187,10 @@ describe("Exploradores", () => {
       screen.getByRole("button", { name: "Próximo projeto" }),
     ).toBeDisabled();
     await user.click(
-      screen.getByRole("button", { name: /Explorar toda a coleção/ }),
+      screen.getByRole("button", { name: /Explorar o catálogo/ }),
     );
     expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
-      "My Expenses",
+      "Explore nosso catálogo",
     );
   });
   it("trata imagem que falhou sem ocultar o restante do projeto", () => {
