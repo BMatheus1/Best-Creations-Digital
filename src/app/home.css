@@ -248,6 +248,9 @@
   .home-copy .home-eyebrow {
     font-size: 7px;
   }
+  .home-navigation {
+    grid-template-columns: minmax(0, 1fr);
+  }
   .home-navigation svg {
     width: 14px;
     height: 14px;

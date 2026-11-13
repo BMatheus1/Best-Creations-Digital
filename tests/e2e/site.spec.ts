@@ -368,3 +368,37 @@ test("home: atalhos respondem a hover, teclado e redução de movimento", async 
   await first.click();
   await expect(page).toHaveURL(/\/servicos$/);
 });
+
+test("home: quatro atalhos em uma coluna no celular", async ({ page }) => {
+  const nav = page.getByRole("navigation", {
+    name: "Explore a Best Creations",
+  });
+  for (const width of [320, 390, 639]) {
+    await page.setViewportSize({ width, height: 740 });
+    await ready(page, "/");
+    const links = nav.getByRole("link");
+    await expect(links).toHaveCount(4);
+    const boxes = await Promise.all(
+      (await links.all()).map((link) => link.boundingBox()),
+    );
+    const first = boxes[0]!;
+    for (const [index, box] of boxes.entries()) {
+      expect(box).not.toBeNull();
+      expect(box!.x).toBe(first.x);
+      expect(box!.width).toBe(first.width);
+      expect(box!.height).toBeGreaterThanOrEqual(48);
+      if (index > 0)
+        expect(box!.y).toBeGreaterThanOrEqual(
+          boxes[index - 1]!.y + boxes[index - 1]!.height,
+        );
+    }
+  }
+  await nav.getByRole("link", { name: "Iniciar projeto" }).click();
+  await expect(page).toHaveURL(/\/iniciar-projeto$/);
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await ready(page, "/");
+  const first = (await nav.getByRole("link").nth(0).boundingBox())!;
+  const second = (await nav.getByRole("link").nth(1).boundingBox())!;
+  expect(second.y).toBe(first.y);
+  expect(second.x).toBeGreaterThan(first.x);
+});
