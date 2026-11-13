@@ -140,6 +140,9 @@ describe("Exploradores", () => {
   it("navega pela coleção com controles e teclado", async () => {
     const user = userEvent.setup();
     render(<ProjectCollection items={projects} />);
+    await user.click(
+      screen.getByRole("button", { name: "Projetos existentes" }),
+    );
     expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
       "My Expenses",
     );

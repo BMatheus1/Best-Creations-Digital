@@ -7,6 +7,7 @@ async function expectSplit(page: Page) {
   const left = page.locator(".home-surface-dark");
   const right = page.locator(".home-surface-light");
   const glyph = page.locator(".home-signature");
+  await expect(hero).toBeVisible();
   expect((await hero.boundingBox())!.width).toBe(width);
   expect((await left.boundingBox())!.width).toBe(width * 0.75);
   expect((await right.boundingBox())!.x).toBe(width * 0.75);

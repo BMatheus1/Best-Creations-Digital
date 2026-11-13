@@ -4,7 +4,7 @@ import { pageMetadata } from "@/lib/metadata";
 import { projects } from "@/data/projects";
 export const metadata = pageMetadata(
   "Projetos — the collection",
-  "Explore projetos reais auditados e experimente demos de CRM, agendamento e restaurante no showroom da Best Creations.",
+  "Explore seis conceitos interativos, projetos reais e demonstrações no showroom da Best Creations.",
   "/projetos",
 );
 export default function ProjectsPage() {

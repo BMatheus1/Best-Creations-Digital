@@ -120,7 +120,7 @@ export function ProjectWizard({
       setStep(step + 1);
   }
   function finish(values: QuoteValues) {
-    setMessage(formatQuote(values));
+    setMessage(formatQuote(values, initialReference));
     setCopied(false);
     setCopyError(false);
     setOpened(false);
@@ -390,6 +390,7 @@ export function ProjectWizard({
                   </button>
                 </div>
                 <p>{values.service}</p>
+                {initialReference && <p>Referência: {initialReference}</p>}
               </div>
               <div className="review-block">
                 <div>

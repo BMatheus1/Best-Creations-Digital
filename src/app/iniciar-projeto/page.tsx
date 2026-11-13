@@ -6,6 +6,7 @@ import { serviceOptions } from "@/data/services";
 import type { QuoteValues } from "@/lib/validations";
 import { pageMetadata } from "@/lib/metadata";
 import { getProject } from "@/data/projects";
+import { getConcept } from "@/data/concepts";
 export const metadata = pageMetadata(
   "Iniciar projeto — seu próximo capítulo",
   "Conte sua ideia em poucos passos. Prepare uma solicitação de projeto personalizada para conversar com a Best Creations.",
@@ -20,6 +21,10 @@ export default async function StartProject({
   }>;
 }) {
   const query = await searchParams;
+  const concept =
+    typeof query.referencia === "string"
+      ? getConcept(query.referencia)
+      : undefined;
   const reference =
     typeof query.referencia === "string"
       ? getProject(query.referencia)
@@ -28,7 +33,7 @@ export default async function StartProject({
     typeof query.servico === "string" &&
     serviceOptions.includes(query.servico as QuoteValues["service"])
       ? (query.servico as QuoteValues["service"])
-      : undefined;
+      : serviceOptions.find((service) => service === concept?.service);
   return (
     <main id="conteudo" className="inner-page start-page shell">
       <Breadcrumb label="Iniciar projeto" />
@@ -59,7 +64,7 @@ export default async function StartProject({
         </aside>
         <ProjectWizard
           initialService={initialService}
-          initialReference={reference?.name}
+          initialReference={reference?.name ?? concept?.name}
         />
       </div>
       <noscript>

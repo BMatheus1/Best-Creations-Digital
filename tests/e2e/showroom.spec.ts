@@ -17,6 +17,7 @@ async function openLab(page: Page, path: string) {
 }
 test("showroom: filtros, índice, demos e links reais", async ({ page }) => {
   await page.goto("/projetos");
+  await page.getByRole("button", { name: "Projetos existentes" }).click();
   await expect(page.locator("[data-active-project]")).toHaveAttribute(
     "data-active-project",
     "my-expenses",
@@ -97,6 +98,7 @@ test("showroom: swipe mobile mantém os controles visíveis", async ({
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/projetos");
+  await page.getByRole("button", { name: "Projetos existentes" }).click();
   const visual = page.locator(".showroom-visual");
   await visual.scrollIntoViewIfNeeded();
   const box = (await visual.boundingBox())!;

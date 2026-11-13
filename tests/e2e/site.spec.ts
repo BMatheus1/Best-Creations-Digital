@@ -72,6 +72,7 @@ test("coleção: anterior, próximo, teclado, página e galeria", async ({
   page,
 }) => {
   await ready(page, "/projetos");
+  await page.getByRole("button", { name: "Projetos existentes" }).click();
   await expect(page.getByRole("heading", { level: 2 })).toContainText(
     "My Expenses",
   );

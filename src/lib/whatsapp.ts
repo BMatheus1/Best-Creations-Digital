@@ -7,7 +7,7 @@ export function normalizeWhatsAppNumber(value: string): string | null {
   return /^[1-9]\d{9,14}$/.test(number) ? number : null;
 }
 
-export function formatQuote(values: QuoteValues): string {
+export function formatQuote(values: QuoteValues, reference?: string): string {
   return [
     "Olá, Best Creations! Gostaria de conversar sobre um projeto.",
     "",
@@ -16,6 +16,7 @@ export function formatQuote(values: QuoteValues): string {
     `Telefone: ${values.phone.trim()}`,
     values.email?.trim() && `E-mail: ${values.email.trim()}`,
     `Serviço: ${values.service}`,
+    reference && `Referência: ${reference}`,
     `Projeto: ${values.description.trim()}`,
     values.deadline && `Prazo desejado: ${values.deadline}`,
     values.budget && `Investimento previsto: ${values.budget}`,
